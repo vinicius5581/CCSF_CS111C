@@ -1,0 +1,68 @@
+/** An interface for the ADT list - LAB 1
+ * @author Victor Malchikov
+ * This design has entries in the list have positions that begin with 0.
+ * We can modify or design if needed to change starting entry positions.  
+ */
+ 
+public interface EntryWayListInterface<T>
+{
+	/** Task: Add object to the list. List's size is increased by 1. 
+	 * @param newEntry is the object to be added as first element in 
+	 *        the list.
+	 * @return true if addition of object was successful, return
+	 *         false if addition of object was not successful.
+	 */
+	
+	public abstract boolean insertHead(T newEntry);
+	
+	/** Task: Add object to the list. List's size increased by 1. 
+	 * @param newEntry is the object to be added to the end of 
+	 *        the list. 
+	 * @return true if addition of object was successful, return
+	 *         false if addition of object was not successful.
+	 */
+	
+	public abstract boolean insertTail(T newEntry);
+	
+	/** Task: Delete first object in the list. 
+	 * @return a reference to the removed entry or null, if list 
+	 *         was empty.
+	 */
+	
+	public abstract T deleteHead();
+	
+	/** Task: Delete last object in the list. 
+	 * @return a reference to the removed entry or null, if list
+	 *         was empty.
+	 */
+	
+	public abstract T deleteTail();
+	
+	/** Task: Displays all entries that are in the list, one
+	 *        per line, in the order in which they occur in the list. 
+	 */
+	
+	public abstract void display();
+	
+	/** Task: Sees whether the list contains a given entry.
+	 * @param anEntry the object that is the desired entry.
+	 * @return the integer position of object in the list >= 0
+	 *         or return -1 if object is not in the list. 
+	 */
+	
+	public abstract int contains(T anEntry);
+	
+	/** Task: Sees whether the list is empty.
+	 * @return true if list is empty, or false if its not.
+	 */
+	
+	public abstract boolean isEmpty();
+	
+	/** Task: Sees whether the list is full.
+	 * @return true if list is full, or false if it is not.
+	 */
+	
+	public abstract boolean isFull();
+	
+
+}

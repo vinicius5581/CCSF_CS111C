@@ -1,0 +1,271 @@
+/** LAB B - Victor Malchikov 
+
+//**************************LList<T> Class****************************************//
+
+public class LList<T> implements EntryWayListInterface<T>
+{
+   private Node<T> firstNode;
+   private int length = 0;
+   
+   //insertHead adds a new object to the front of the list
+	@Override
+	public boolean insertHead(Object newEntry) 
+	{ 
+	   //default to return is false
+	   boolean isSuccessful = false;
+	   
+	   //first check if list is empty
+	   //if list is empty then create new node with data 
+	   if(isEmpty())
+	   {
+	      firstNode = new Node(newEntry);
+	      length++;
+	      isSuccessful = true;
+	   }
+	   //if list is not empty then create new node and add it to front of list
+	   else
+	   {
+	      Node<T> newNode = new Node(newEntry);
+	      newNode.next = firstNode;
+	      firstNode = newNode;
+	      length++;
+	      isSuccessful = true;
+	   }
+	   
+		return isSuccessful;
+	}
+
+	//insertTail adds new object to the end of the list
+	@Override
+	public boolean insertTail(Object newEntry) 
+	{
+	   //default return is false
+	   boolean isSuccessful = false;
+	   
+	   //check if list is empty
+	   //if empty then add first node to the list
+	   if(isEmpty())
+	   {
+	      firstNode = new Node(newEntry);
+	      length++;
+	   }
+	   //if not empty then add new node with object to end of list
+	   else
+	   {
+	      Node<T> current = firstNode;
+	      //traverse the list until we get to the last node in list
+	      while(current.next != null)
+	      {
+	         current = current.next;
+	      }
+	      //add new node with object to the end of the list 
+	      current.next = new Node(newEntry);
+	   }
+	   
+		return isSuccessful;
+	}
+
+	@Override
+	public T deleteHead() 
+	{
+	   //ensure that list is not empty
+		assert !isEmpty();
+		
+		//return deleted head
+		T data = null;
+		
+		//if list only has one item; delete that item
+		if(firstNode.next == null)
+		{
+		   data = firstNode.data;
+		   firstNode = null;
+		}
+		else //if more then one item then set next item in list to be first 
+		{
+		   data = firstNode.data;
+		   firstNode = firstNode.next;
+		}
+		
+		return data;
+	}
+
+	@Override
+	public T deleteTail() 
+	{
+		//ensure that list is not empty
+	   assert !isEmpty();
+	  
+	   //item to be returned
+	   T data = null;
+	   
+	   Node<T> current = firstNode;
+	   
+	   //check if only one item in the list; if so delete that item
+	   if(firstNode.next == null)
+	   {
+	      data = firstNode.data;
+	      firstNode = null;
+	   }
+	   else //if more then one item then traverse the list and remove last item
+	   {
+	      while(current.next.next != null)
+	      {
+	         current = current.next;
+	      }
+	      
+	      data = current.next.data;
+	      current.next = null;
+	   }
+	   
+		return data;
+	}
+
+	@Override
+	public void display()
+	{
+		//ensure list is not empty
+	   assert !isEmpty();
+	   
+	   Node<T> current = firstNode;
+	   while(current != null)
+	   {
+	      System.out.println( current.toString() );
+	      current = current.next;
+	   }
+	
+	}
+
+	@Override
+	public int contains(Object anEntry) 
+	{
+		//check if list is empty
+	   assert !isEmpty();
+	   
+	   Node<T> current = firstNode;
+	   
+	   //return 1 if object is in the list; else -1
+	   while(current != null)
+	   {
+	      if(current.compareTo(anEntry) == 0)
+	         return 1;
+	      else
+	         current = current.next;
+	   }
+	      
+		return -1;
+	}
+
+	@Override
+	public boolean isEmpty()
+	{
+	   //default set to be true (list is empty)
+	   boolean isEmpty = true;
+	   
+	   //check if first node is empty
+	   if(firstNode != null)
+	      isEmpty = false;
+	   
+		return isEmpty;
+	}
+
+	@Override
+	public boolean isFull()
+	{
+		return isEmpty();
+	}
+	
+}
+
+
+//*************************************** Node Class ************************************//
+
+
+public class Node<T> 
+{
+   public Node<T> next;
+   public T data;
+   
+   public Node(T data)
+   {
+      this.data = data;
+      this.next = null;
+   }
+   
+   public Node(T data, Node<T> node)
+   {
+      
+   }
+   
+   @Override
+   public String toString()
+   {
+      String nodeData = "";
+      nodeData = (String)data;
+      return nodeData;
+   }
+   
+   
+   public int compareTo(Object n)
+   {
+      Node<T> node = (Node<T>) n;
+      if(data.equals(node.data))
+         return 0;
+      else
+         return -1;
+   }
+
+}
+
+
+//****************************************Driver Class*************************************//
+public class LListDriver
+{
+   public static void main(String[] args)
+   {
+      LList<String> list = new LList<String>();
+      System.out.println("Add 3 entries to top of the list.");
+      list.insertHead("first entry added to FRONT");
+      list.insertHead("second entry added to FRONT");
+      list.insertHead("third entry added to FRONT");
+      list.display();
+      System.out.println("\nNow we add to end of the list 3 entries.");
+      list.insertTail("first added to END");
+      list.insertTail("second added to END");
+      list.insertTail("third added to END");
+      System.out.println("\nCURRENT LIST:");
+      list.display();
+      System.out.println("\nWe will now remove first and last entry\n");
+      list.deleteHead();
+      list.deleteTail();
+      System.out.println("NEW LIST:\n");
+      list.display();
+      
+      
+   }
+}
+
+//*****************************************SAMPLE OUTPUT**************************************//
+
+Add 3 entries to top of the list.
+third entry added to FRONT
+second entry added to FRONT
+first entry added to FRONT
+
+Now we add to end of the list 3 entries.
+
+CURRENT LIST:
+third entry added to FRONT
+second entry added to FRONT
+first entry added to FRONT
+first added to END
+second added to END
+third added to END
+
+We will now remove first and last entry
+
+NEW LIST:
+
+second entry added to FRONT
+first entry added to FRONT
+first added to END
+second added to END

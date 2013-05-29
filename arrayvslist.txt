@@ -1,0 +1,6 @@
+//f.when will arrayList  use fewer references than chainList?
+when the array has more than 10 items except number of items = 10*pow(2,n) {n=0,1,2,3,...)
+
+
+//g.when will chainList  use fewer references than arrayList?
+when the array has less than 10 items.

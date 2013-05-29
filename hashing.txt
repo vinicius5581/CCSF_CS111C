@@ -1,0 +1,13 @@
+int hash = 0;
+	int n = s.length();
+	for (int i = 0; i < n; i++)
+		hash = g * hash + s.charAt(i);		// g = 31 by default
+		
+	private in getHashIndex(K key)
+	{
+		int hashIndex = key.hashCode % hashTable.length;
+		if(hashIndex < 0)
+			hashIndex = hashIndex + hashTable.length;
+			
+		return hashIndex;
+	}

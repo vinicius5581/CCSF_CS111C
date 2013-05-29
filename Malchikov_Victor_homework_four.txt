@@ -1,0 +1,170 @@
+Page 220[264] #1–5, 7, 10–11, 18–20
+Name: Victor Malchikov
+
+1a.
+After arriving at a party, you shake hands with each person there. 
+Answer: When I arrive to the party there can be "n" number of people which means I would have to
+shake hands with "n" number of people. This also means that I have to perform "n" number of 
+statements. 
+
+Example:
+for(int personAtParty = 1; personAtParty <= n-1; personAtParty++)
+	shakeHand();
+
+shakeHand() method would execute "n-1" number of times. As such, this is O(n). 
+
+1b. 
+Each person in a room shakes hands with eveyrone else in the room.
+Answer: This problem can be written as:
+
+for(int person = 1; person < n; person++)
+   for(int nextPerson = person+1; nextPerson < n; nextPerson++)
+      shakeHand();
+
+shakeHand() method would execute O(n^2). 
+
+1c.
+You climb a flight of stairs.
+Answer: Each stair can be seen as one statement that needs to be executed. As such, we will
+need to execute as many statements as there are stairs. This is O(n).
+
+Example:
+for(int stair = 1; stair < n; stair++)
+   System.out.println(stair);
+
+1d. 
+You slide down the banister.
+Answer: As you slide down you do not have to touch any stair so this is O(1).
+
+Example:
+slideDown();
+
+1e.
+After entering an elevator, you press a button to choose a floor.
+Answer: Choosing a buttong can be seen as one execution statement. This is O(1);
+
+Example:
+chooseFloor();
+
+1f.
+You ride the elevator from the ground floor up to the nth floor.
+Answer: As you ride the elevator each floor you pass can be seen as a statment that was executed.
+As such, this can be written as O(n).
+
+Example:
+for(int floor = 1; floor < n; floor++)
+	System.out.println("current floor: " + floor);
+
+1g.
+You read a book twice.
+Answer: This can be seen as executing a statement twice. As such this is O(1).
+
+Example:
+readBook();
+readBook();
+
+2.
+Describe a way to climb from the bottom ofa flight of stairs to the top in time that is no 
+better than O(n^2).
+Answer: This can be accomplished if you go up and down the stairs until you reach the top.
+Eachtime you go up the stairs you go up one stair higher than the previous run.
+You do this until you reach the top. This is no better or worse than O(n^2). 
+
+Example of O(n^2):
+
+   for(int position = 1; position < n; position++)
+      for(int startAgain = position; startAgain >=1; startAgain--)
+
+3a.
+Display all the integers in an array of integers.
+Answer: If an array contains n number of integers then this will require n number of 
+executions. This is O(n).
+
+for(int i = 0; i < array.length; i++)
+   System.out.print(array[i]);
+
+3b.
+Display all the integers in a chain of linked nodes.
+Answer: If a linked chain has n number of nodes then this will require n number of
+executions. This is O(n).
+
+3c. 
+Display the nth integer in an array of integers.
+Answer: Since array's have an index this will be O(1).
+
+System.out.println(array[n-1]);
+
+3d. 
+Compute the sum of the first n even integers in an array of integers. 
+Answer: Worst case is that we don't know which elements contain even integers. This means
+we have to traverse through the array checking if the stored integer is even or not. 
+
+This is O(n).
+
+4. 
+Answer: To execute doubleArray() method we have to copy all of the elements into the new array.
+This is an O(n). 
+
+5. 
+Answer: If we alter the ADT list to include a tail reference then the following time efficiencies
+will change:
+
+Note: Following changes also assume that methods were changed so that data in last node is checked 
+prior to use of a loop. 
+
+add(new Entry) will be O(1) if we are adding to the end of the list
+add(newPosition, newEntry) will be O(1) if we are adding to the end of the list
+remove(givenPosition) will be O(1) if we are removing from the end of the list
+getEntry(givenPosition) will be O(1) if entry user is looking for happens to be last in the list 
+contains(anEntry) will be O(1) if entry is the last one in the list 
+
+7.
+Big O of Algorithm X is O(n^2)
+Big O of Algorithm Y is O(n^2)
+
+10.
+Answer: 
+This is O(n^2)  
+Outer loop will execute n times.
+Middle loop will always execute n times.
+Inner loop will always execute 10 times.
+
+n*n*10 = 10n^2 = O(n^2)
+
+11.
+Answer: 
+This is O(n^3)
+Outer loop will execute n times.
+Middle loop will always execute n times.
+Inner loop will always execute n times.
+
+n*n*n = n^3 = O(n^3)
+
+18.
+Answer: Since the dictionary is not sorted then you have to compare each word to find a particular 
+word in the dictonary. This is O(n).
+
+19.
+Answer: If the dictionary is sorted alphabetically then you know where to find the word right away.
+This is O(1).
+
+20a.
+int yards = 0;
+
+for(int y = 0; y < n; y++)
+	yards++;
+yards *=2;
+
+How many yards? 2*(1 + 2 + 3 + 4.. +n) = 2*(n/2)(n+1)
+yards = 110; if n = 10.
+	
+20b.
+Answer: 2*(n/2)(n+1) = n(n+1) = n^2 + n;
+
+20c.
+Answer: Sprinter that starts at 0 yard line and runs n number of lines will only travel n number of lines.
+Thus, the difference is that the football player will run n^2 more lines. 
+
+	  
+		
+

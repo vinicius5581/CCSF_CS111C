@@ -1,0 +1,298 @@
+Homework #2  
+Student: Victor Malchikov
+
+Questions: 1 - 7, 10
+
+Question 1:
+
+// add a constructor to AList class that creates a list from a given array of objects.
+
+public class AList<T>
+{
+  private T[] list; // array of list entries
+  private int length; // current number of entries in list
+  private static final int MAX_SIZE = 50; // max length of list not used if AList
+  
+  //constructor that takes an array of objects   
+  public AList(T[] array)
+  {
+     //First check if array is proper length.
+     assert array.length <= MAX_SIZE;
+	
+     //set length of list based on number of elements in array
+     length = array.length;
+     //instanciate list
+     list = (T[]) new Object[MAX_SIZE];
+  
+     for(int i = 0; i < list.length; i++)
+     {
+         list[i] = array[i];
+     }
+   }
+.
+.
+.
+}
+
+Question 2:
+
+//As per instructions in class we can assume we are also implementing Comparable Interface
+public int getPosition(T anObject)
+{
+  int position = -1; //Return -1 if object was not found in the list; this is set to default return
+  
+  // use for-loop to check if anObject is in the list
+  for(int index = 0; index < length; index++)
+  {   
+    //if we find the object then store the position which is index +1; leave the loop.
+	if(list[index].compareTo(anObject))
+	{
+       position = index+1; //+1 because client side deals with numbers starting from 1 not 0.
+	   break; //exit the for-loop
+	}
+  }
+  
+  return postion;
+}
+
+Question 3:
+
+//As per instructions in class we can assume we are also implementing Comparable Interface
+
+public boolean remove(T anObjcet) 
+{
+  boolean isSuccessful = false; //default return is false if object was not found
+  
+  // use for-loop to check if anObject is in the list; and remove it if it is.
+  for(int index = 0; index < length; index++)
+  {   
+    //if we find the object then remove it and leave the loop.
+	if(list[index].compareTo(anObject))
+	{
+	   isSuccessful = true;
+      
+	   //check that object was not at the end of the list	
+	   if (index != list.length -1)
+		 shiftDown(index); //method to fill in the hole by shifting elements
+	   else
+	     list[index] = null; //remove object from list by setting element to null
+	   
+	   length--; //update list length
+	   break; //exit the for-loop
+	}
+  }
+  
+  return isSuccessful;
+}
+
+/** A method that shifts all elements down.
+*   @param removed is the index whose data was removed from the list */
+
+private void shiftDown(int removed)
+{
+  //shift all stored data above removed element down one 
+  for(int index = removed; index < length; index++)
+  {
+    list[index] = list[index+1];
+  }
+}
+
+Question 4:
+
+public void moveToEnd()
+{
+  //check that list is not empty.
+  assert !isEmpty();
+ 
+  //store data of first list element in a temp variable  
+  Object temp = list[0];
+  
+  //update list by shifting elements down using shiftDown method
+  //pass 0 as a parameter for that is index whose data will be moved to last position in list
+  shiftDown(0);
+  
+  //store data from first element into last postion in the list
+  list[length-1] = temp;
+}
+
+/** A method that shifts all elements down.
+*   @param removed is the index whose data was removed from the list */
+
+private void shiftDown(int removed)
+{
+  //shift all stored data above removed element down one 
+  for(int index = removed; index < length; index++)
+  {
+    list[index] = list[index+1];
+  }
+}
+ 
+Question 5:
+
+private boolean replace(Object newObject, int givenPosition)
+{
+  Object remove = remove(givenPosition);
+  boolean isSuccessful = add(givenPosition, newObject);
+  
+  return isSuccessful;
+
+} 
+
+How does this method compare with the method replace of the ADT list?
+
+The program must perform more additional operations. In this method the
+program must traverse through the list two times. First the program calls 
+the remove metho which traverses through the list to remove the specific 
+object and then the program calls the add method which again traverses 
+through the list to add a new object at a given position. If we implement 
+replace method of the ADT list then the list is only traversed once. Thus,
+it is more time efficient to use the method of the ADT list.  
+
+Question 6:
+
+public boolean replace(int givenPosition, T newEntry)
+{
+  //check that the list is not empty and that given position is in the list
+  assert !isEmpty() && ( givenPosition >= 1 && givenPosition <= length ) 
+  
+  //return false by default
+  boolean isSuccessful = false;
+  
+  //find and replace old object with new object in the list 
+  for(int i = 0; i < length; i++)
+  {
+     if(i == givenPosition-1)
+	 {
+        list[i] = newEntry;
+		isSuccessful = true;
+	 }
+  }
+   
+  return isSuccessful;
+
+}
+   
+Question 7:
+
+public T getMin();
+{
+  // check that the array is not empty
+  assert !isEmpty();
+  
+  //first element in array will be our initial smallest object 
+  T smallest = list[0];
+  
+  //find smallest object; start checking at index 1 since index 0 is already stored 
+  for(int index = 1; index < length; index++)
+  {
+     if(list[index].compareTo(smallest) < 0)
+         smallest = list[index];
+  }
+
+  return smallest;
+
+}        
+
+Question 10:
+
+/** Method: Check number of elements in the array are within a certain range 
+*         compared to the size of the array.
+*   @return true if size of the array is too big when compared to number of 
+*          elements that are stored in the array; otherwise return false. */
+
+private boolean isTooBig()
+{
+   return length > 20 && ( length < list.size()/2 );
+}
+  
+/** Method: Reduce size of the current array. */
+  
+private void reduceArray():
+{
+  int newArraySize = list.size()*(3/4);
+  
+  //check that new array size will be large enough for all elements 
+  assert newArraySize >= length;
+  
+  //create new array 
+  AList<T> newArray = new AList<T>(newArraySize);
+   
+  //copy elements into new array   
+  for(int index = length-1; index >= 0; index--)
+     newArray[index] = list[index];
+  
+  //point old array to new array
+  list = newArray;
+
+}
+
+//This is an updated Remove method that now uses isTooBig() and reduceArray() methods.
+//As per instructions in class we can assume we are also implementing Comparable Interface
+
+public boolean remove(T anObjcet) 
+{
+  boolean isSuccessful = false; //default return is false if object was not found
+  
+  // use for-loop to check if anObject is in the list; and remove it if it is.
+  for(int index = 0; index < length; index++)
+  {   
+    //if we find the object then remove it and leave the loop.
+	if(list[index].compareTo(anObject))
+	{
+	   isSuccessful = true;
+      
+	   //check that object was not at the end of the list	
+	   if (index != list.length -1)
+		 shiftDown(index); //method to fill in the hole by shifting elements
+	   else
+	     list[index] = null; //remove object from list by setting element to null
+	   
+	   length--; //update list length
+	   break; //exit the for-loop
+	}
+  }
+  
+  //check if array is too big; reduce its size if it is too big
+  if(isTooBig())
+     reduceArray();
+	 
+  return isSuccessful;
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

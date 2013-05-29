@@ -1,0 +1,131 @@
+Homework #1  
+Student: Victor Malchikov
+
+1. Answer: The list will contain the following: four ,three, two, one, A, B, C, D
+
+2. Answer: beta,  alpha, delta
+
+3.  
+
+//Note: Entries in this list have positions that begin with 1.
+
+/** Task: Find the position of a specific object in the list. 
+*   @param anObject an Object whose position we want to know.
+*   @return an integer of the position of the Object;
+*          if the Object is in the list then return interger >= 1,
+*          if the Object is not in the list then return -1. */
+     
+public int getPosition(T anObect)
+
+4.
+
+/** Task: Find the first occurance of the given Object and remove it
+*         from the list. Entries originally at positions higher than 
+*         the first occurance of the Object are at the next lower 
+*         position within the list, and the list's size is decreased
+*	      by 1. 
+*   @param  anObject an Object whose first occurance in the list should 
+*	        be removed. 
+*   @return true if first occurance of the Object was successfully removed,
+*           or false if the list does not have the given Object */ 			
+
+public boolean remove(T anObject)
+
+5. 
+
+/** Task: Move the first item in the list to the end of the list. 
+*         Entries originally at positions higher than the first 
+*         position are at the next lower position within the list,
+*         size of the list does not change. */ 
+
+public void moveToEnd()
+
+6.
+
+int position = myList.getPosition(someObject);
+
+7.
+
+nameList.remove(oldObject);
+nameList.add(givenPosition, newObject);
+
+8.
+
+//contains will store boolean that will tell the user if the object is in the list
+boolean contains = false; 
+
+//Obtain first and last name from Name object 
+String first = myName.getFirst();
+String last = myName.getLast();
+
+//Set counter starting at 1
+int position = 1; //Note: Entries in our list begin with 1.
+
+//Start loop to find if Name object is in the list.
+while ( position <= nameList.getLength() )
+{
+  //Obtain first and last name of first Name object in the list
+  String nameFirst = nameList.getEntry(position).getNameFirst();
+  String nameLast = nameList.getEntry(position).getNameLast();
+  
+  //Compare data of two objects to find if they match
+  if ( first.equals(nameFirst) && last.equals(nameLast) )
+  { 
+    //if the data matches set contains to true and break out of the loop
+    contains = true;
+	break;
+  }
+  else 
+    position++; //increment the position to check next object in the list. 
+
+}
+
+//print out the outcome 
+if(contains)
+ System.out.println("Object is in the list.");
+else
+ System.out.println("Object is not in the list.");
+
+10
+a) Find and remove lowest score in the list. 
+b) Compute the average of these quiz scores, ignoring the lowest score.
+
+int avg = 0;
+int score = 0;
+int lowestScore = 0;
+
+//We will assume that quizScores contain only quiz scores of ONE student. 
+ListInterface<Double> quizScores = new AList<Double>();
+
+int i = 1;
+int numberOfQuizes = quizScores.size();
+
+//iterrate through all the quizes that the student has taken
+while(i <= numberOfQuizes)
+{
+  //note: i refers to quiz number; i starts at 1 which quals to quiz 1.
+  //store quiz score by obtaining it via .getEntry(number) ListInterface method.
+  score = quizScores.getEntry(i); 
+  
+  //find if quiz score is lowest
+  if( score < lowestScore)
+    lowestScore = score;
+  
+  //add quiz score to the total
+  total += score;
+  i++;
+}
+
+//Answer to 10a
+System.out.println("Lowest quiz score was: " + lowestScore);
+
+//Answer to 10b
+
+//first subtract lowest score from total
+total -= lowestScore;
+
+avg = total/(numberOfQuizes -1); //assume denominator is not 0. 
+
+System.out.println("Average ignoring lowest score is: + avg);
+ 
+

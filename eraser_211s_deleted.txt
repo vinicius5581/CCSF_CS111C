@@ -1,0 +1,43 @@
+package hw.shape;
+
+import hw.CanvasSpace;
+
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+
+public class Eraser extends ShapeBuilder
+{
+	private CanvasSpace canvas;
+	private Point xy;
+	
+	public void repaint(Graphics g)
+	{
+		Toolkit cursor = Toolkit.getDefaultToolkit();
+		Image eraser = cursor.getImage("eraser.png");
+		Cursor c = cursor.createCustomCursor(eraser, xy, "eraser");
+		canvas.setCursor(c);
+	}
+	
+	public void getCoordinates(Point cursorLocation)
+	{
+		xy = cursorLocation;
+	}
+	
+	public void getCanvasSpace(CanvasSpace c)
+	{
+		canvas = c;
+	}
+	
+	@Override
+	public void drawShape(Graphics g)
+	{
+		repaint(g);
+	}
+	
+	
+
+}

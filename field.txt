@@ -1,0 +1,95 @@
+	
+	String value =	getFieldValue(d, name, type);
+	private static String getFieldValue(Field d, String name, String type) throws IllegalArgumentException, IllegalAccessException, InstantiationException, ClassNotFoundException 
+	{
+	   Class<?> c = Class.forName(type);
+	   Object o = c.newInstance();
+	   String n = d.get(o).toString();
+	   if(n == null)
+	      return ";";
+	   else
+	      return n+";";
+	}
+	
+	
+	
+	
+	
+	private static void parseField(String type)
+	{
+	   StringTokenizer st = new StringTokenizer(type);
+	   ArrayList<String> tmp = new ArrayList<String>();
+	   while(st.hasMoreTokens())
+	   {
+	      String tk = st.nextToken();
+	     // System.out.println("token: " + tk);
+	      tmp.add(tk);
+	   }
+	  // System.out.println("SIZE 1 and 2");
+	   //System.out.println(tmp.get(tmp.size()-1));
+	   //System.out.println(tmp.get(tmp.size()-2));
+	   
+	   int size = tmp.size();
+	   if(tmp.get(size-1).contains(".") && tmp.get(size-2).contains("."))
+	   {
+	      String[] cls = tmp.get(size-2).split("\\.");
+	      String className = cls[cls.length-1];
+	      String[] fType = tmp.get(size-1).split("\\.");
+	      String gType = "<"+fType[fType.length-2]+">";
+	      String pType = fType[fType.length-1];
+	      tmp.remove(size-1);
+	      tmp.remove(tmp.size()-1);
+	      tmp.add(className);
+	      tmp.add(gType);
+	      tmp.add(pType); 
+	   }
+	   
+	   if(tmp.get(size-1).contains(".") && !tmp.get(size-2).contains("."))
+	   {
+	      System.out.println("inside 2nd");
+	      String[] fType = tmp.get(size-1).split("\\.");
+	      String gType = fType[fType.length-2];
+	      String pType = fType[fType.length-1];
+	      tmp.remove(size-1);
+	      tmp.add(gType);
+	      tmp.add(pType);
+	   }
+	   
+	   for(int i = 0; i < tmp.size(); i++)
+	   {
+	      System.out.print(tmp.get(i) + " ");
+	   }
+	   System.out.println();
+	}
+	
+	/*
+	private static String getVariableType(Field f)
+	{
+	   if(f.getType() == byte.class)
+	      return "byte";
+	   else if(f.getType() == String.class)
+	      return "String";
+	   else if(f.getType() == boolean.class)
+	      return "boolean";
+	   else if(f.getType() == double.class)
+	      return "double";
+	   else if(f.getType() == float.class)
+	      return "float";
+	   else if(f.getType() == char.class)
+	      return "char";
+	   else if(f.getType() == long.class)
+	      return "long";
+	   else if(f.getType() == short.class)
+	      return "short";
+	   else if(f.getType() == int.class)
+	      return "int";
+	   else
+	   {
+	      String generic = f.getDeclaringClass().toString();
+	      //String generic = generic.substring(generic.indexOf("."))
+	     // System.out.println(generic);
+	   }
+
+	   return "";
+	}
+	*/

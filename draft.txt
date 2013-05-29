@@ -1,0 +1,96 @@
+//add method - user able to add new objects to the list
+   public boolean add(int newPosition, T newEntry)
+   {
+      boolean isSuccessful = false;
+      
+      if( (newPosition >=1) && (newPosition <= length+1))
+      {
+         
+         Node<T> newNode = new Node(newEntry);
+         
+         if( isEmpty() || (newPosition == 1)) //case 1
+         {
+            firstNode = newNode;
+            newNode.next = firstNode;
+         }
+         else 
+         {
+            Node<T> nodeBefore = getNodeAt(newPosition -1);
+            Node<T> nodeAfter = nodeBefore.next;
+            newNode.next = nodeAfter;
+            nodeBefore.next = newNode;
+         }
+         length++;
+      }
+      else
+         isSuccessful = false;
+      return isSuccessful;
+   }
+   
+   public int getLength()
+   {
+      return length;
+   }
+   
+   public Node<T> getNodeAt(int position)
+   {
+      assert !isEmpty() && (1 <= position) && (position <= length);
+      
+      Node<T> current = firstNode;
+      
+      for(int i = 1; i < position; i++)
+      {
+         current = current.next;
+      }
+      
+      assert current != null;
+      return current;
+   }
+   
+   public T getEntry(int givenPosition)
+	{
+	   T result = null;
+	   
+	   if((givenPosition >=1) && (givenPosition <= length))
+	   {
+	      assert !isEmpty();
+	      result = getNodeAt(givenPosition).data;
+	   }
+	   return result;
+	}
+	
+	
+	public boolean equals(LList l)
+	{
+	  //ensure that list is not empty
+	  assert !isEmpty();
+	  //ensure that both lists are the same size
+	  assert (this.length == l.length);
+	  
+	  //return true by default 
+	  boolean isTrue = true;
+	  
+	   //get objects of nodes
+	   Node<T> current = firstNode;
+	   Node<T> currentL = l.getNodeAt(1);
+	     
+	   //loop through lists and compare each objects
+	   for(int i = 1; i <= this.length; i++)
+	   {
+	      if(current.compareTo(currentL) != 0)
+	     { 
+	         isTrue = false;
+	         break;	     
+	      }
+	     else
+	     {
+	      current = current.next;
+	      currentL = currentL.next;
+	     }
+	   }
+	   
+	   return isTrue;
+	}
+	
+	
+	    

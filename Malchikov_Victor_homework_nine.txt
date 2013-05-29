@@ -1,0 +1,462 @@
+Name: Victor Malchikov
+Homework: 9 Trees 
+
+//note: best to open with notepad++ 
+
+Page 568[667] #1-9, 11-12, 19-20
+Page 596[692] #7a, 10a, 16, 17
+Page 635[732] #1-3, 10a, 15
+Page 659[754] #1, 2, 4
+Page 695[789] #3, 4, 8b, 8c
+
+Page 568 #1-9, 11-12, 19-20
+1.
+               (0,19)
+			   /     \
+		(0,10)       (11,19)
+        /    \       /     \
+    (0,5)   (6,10) 	(11,15) (16,19)
+                  etc.	
+
+2. Height of the shortest binary tree that contains 21 nodes? 
+Total nodes = 2^h-1 = 21 
+log2(21+1) = 5 (post rounding) 
+Is this tree full? No. To be full it has to be a power of 2. 
+
+3.Consider a binary tree that has 3 levels.
+a. Manimum number of nodes in this tree? 2^h-1 = 2^3 = 8 -1 = 7.
+b. Maximum number of leaves in this tree? 2^(h-1) = 2^(3-1) = 4.
+c. If the binary tree had 10 levels then:
+Maximum number of nodes in the tree: 2^10-1=1023
+Maximum number of leaves in the tree: 2^(10-1)=512   
+
+4.
+int numberOfNodes = count(root);
+
+public static int count(Node current) {
+   if(current == null)
+	return 0;
+   else {
+      return 1+count(current.left)+count(current.right);
+   }
+}
+
+5.
+3 level tree
+_________________________ 
+              O
+			  /\
+			 O   O
+			/\   /\
+		   0  0  0  0
+_________________________
+line going from left to right 
+              O
+			  /\
+			 O   O
+			/\   /\
+		   1  0  0  0
+		   
+              O
+			  /\
+			 2   O
+			/\   /\
+		   1  0  0  0		
+              
+			  O
+			  /\
+			 2   O
+			/\   /\
+		   1  3  0  0	
+		   
+			  4
+			  /\
+			 2   O
+			/\   /\
+		   1  3  0  0		  
+
+			  4
+			  /\
+			 2   O
+			/\   /\
+		   1  3  5  0
+
+			  4
+			  /\
+			 2   6
+			/\   /\
+		   1  3  5  0
+
+			  4
+			  /\
+			 2   6
+			/\   /\
+		   1  3  5  7
+
+6.
+a. Pre: 6, 4, 2, 1, 3, 5, 8, 7, 9, 10, 11
+b. Post: 1, 3, 2, 5, 4, 9, 7, 11, 10, 8, 6
+c. In: 1, 2, 3, 4, 5, 6, 9, 7, 8, 11, 10
+d. Level: 6, 4, 8, 2, 5, 7, 10, 1, 3, 9, 11
+
+7.
+a. Pre: 11, 8, 3, 2, 1, 5, 4, 6, 10, 9, 7
+b. Post: 2, 1, 3, 4, 6, 5, 8, 9, 7, 10, 11
+c. In: 2, 3, 1, 8, 4, 5, 6, 11, 9, 10, 7
+d. Level: 11, 8, 10, 3, 5, 9, 7, 2, 1, 4, 6		
+
+8.
+a. Is 23a a binary search tree?  No. 9 is not in the correct location. 9 is > 8 and 
+should have been under 10 (root.right). 
+
+Note: to be a binary search tree the values below the root have the following
+order: root.left < root < root.right
+
+b. Is 23b a binary search tree? No. 9, 7, are less than 11 and should have been 
+on the left side of it. 
+   
+9. Draw the shortest possible binary search tree from strings:
+Is the tree unique? No. If we were given different order of same strings the 
+tree would come out to look different. Example have root be Kip.
+Number of string: 14
+Note: Strings ordered alphabetically.
+
+					        Jess
+			Chad                            Rico
+	 Ben	      Ella              Luis             Tracy
+Anna           Drew    Jen      Kip     Pat       Scott    Zack
+
+11. Draw a maxheap from the strings in exercise 9. Is maxheap unique?
+
+                           Zack
+			  Pat  			             Tracy
+		Jess        Luis          Rico           Scott
+   Ann     Drew    Chad  Kip     Ben  Jen      Ella
+
+
+Is this unique? No. Other ordered heaps could have been arranged differently. Example:
+0   1     2      3      4     5     6   7     8     9     10    11    12   13   14
+-  Zack, Tracy, Scott, Rico, Pat, Luis, Kip, Jess, Jenn, Ella, Drew, Chad, Ben, Ann
+ 
+                                 Zack
+			     Scott                            Tracy
+	      Luis           Kip            Rico                 Pat
+	Chad      Ben      Ann          Jess   Jenn         Ella     Drew     		
+
+12. Yes, if the elements are ordered in such a way that allows addition to the tree 
+that resembles a maxheap and a binary search tree. For b.s.t. the rules must be
+maintained in that a < b < c where b is the root a is left node and c is right node.
+At the same time, a maxheap is must be complete or full.  As such, this comes down to the order 
+of the items given to us. Since maxheap and b.s.t. each contain 2 nodes it is possible to have a
+maxheap be a b.s.t. 
+
+19. Draw an expression (a+b)*(c-d)
+                       *
+				  +        -  
+			    a   b    c   d
+20. What value does the algorithm given in Segment 22 return for expression tree in
+Figure 14c when a=3, b =4, c=5?
+14c expression: a*(b+c)
+                    *
+				a(3)     +
+				      b(4)  c(5)
+(RIGHT)
+first = evaluate(left) ->3
+operator = *
+(LEFT)
+first= 4
+second = 5
+operator = +
+(RESULT)
+left * right = 3*(4+5) = 27 		  
+		  
+		  
+
+Page 596[692] #7a, 10a(removed from hw), 15, 16
+
+7a.
+Method that counts the number of times an object occurs in the tree.
+public int count(T object) {
+
+	return newCount(root, object);
+}
+
+private int newCount(Node root, T object) {
+ if(root == null)
+   return 0;
+ else 
+   if(root.data.compareTo(object) == 0) 
+      return 1+count(root.left, object) + count(root.right, object);
+   else
+      return count(root.left, object)+count(root.right, object);
+}
+	
+10a. 
+Given a general tree, consider an equivalent binary tree. Define a traversal of this
+binary tree that is equivalent to a level-order traversal of the general tree.
+
+We could also put the binary tree into the array (if there are no leafs for some parents
+then have those leafs contain empty string). We can then traverse the array which
+would print out the data in level order. Similar to the way figure 11 is represented 
+based off figure 10. 
+
+15. Node will have three pointers: one to the right child, one to the left child, and one 
+to it's parent. If we change the node to this type of node then we will need to change the 
+following methods: add method. When we add a new node to the tree then we have to the tree 
+we have to add parent information. Consequently we could make it part of underlying 
+algorithm where the node is automatically given a pointer to parent node when it is added 
+to the tree.  
+
+16
+a. Children: 2(parentIndex)+1 and 2(parentIndex)+2
+b. Parent of node at index i: (i/2) if odd index, (i/2)-1 if even index.
+c. Advantage is that you don't have to leave the first index (0) blank but can put your
+root node into it. Disadvantage is that you have to perform extra checks when finding 
+the parent node based on if index of the child is even or odd. 
+
+
+Page 635[732] #1-3, 10a, 15
+1. Add the following to the bst: 10, 5, 6, 13, 15, 8, 14, 7, 12, 4
+					 10
+           5                   13    
+	   4	   6          12         15
+				   8              14
+				 7 
+
+2. What ordering of the search keys 10, 5, 6, 13, 15, 8, 14, 7, 12, 4 would result in most 
+balanced tree if they were added to an initially empty bst?
+-The most balanced tree would be if the tree cameout to be full or complete. 
+-In a completely bst, the subtrees of each node have exactly the same hiehgt:
+8, 6, 13, 5, 7, 12, 15, 4, 10, 14 
+				 8
+         6                 13
+     5      7         12        15
+  4                 10            14
+
+How? 1st sort; add middle points into bst
+1  2  3  4  5   6   7   8   9  10 
+4, 5, 6, 7, 8, 10, 12, 13, 14, 15
+            8
+      6                13                   
+   5     7         12       14
+4              10              15
+ 
+3. Give 4 different orderings that would result in the LEAST balanced tree if they
+were added to an initially empty bst. 
+one. Add everything when data is sorted (ascending)
+two. Add everything when data is sorted (descending)
+three. Add everything when data is sorted (ascending) but last two elements are swapped.
+four. Add everything when data is sorted (descending) but first two elements are swapped.
+
+10a. 
+If we added data to a file from a binary search tree using pre-order traversal then
+we would get the following data in the file:
+Jared, Brittany, Brett, Doug, Megan, Jim, Whitney
+Now if we put these names back into a binary search tree we will get the following:
+                          Jared
+			Brittany                Megan
+    Brett            Doug        Jim     Whitney
+	
+15. Write an algorithm that returns the smallest search key in a binsary search tree.
+Algorthm will have to traverse the tree going down the left sub-trees until it reaches
+null. Once it reaches null it should return the last stored number as that should be
+the smallest number in the bst.
+
+//method to return the smallest number in bst; user should pass in root of bst
+//else we can make a method that accepts bst, gets root, and then calls this method
+public int smallestNumber(Node root) {
+  
+   //check if root is not null
+   if(root == null)
+       return -1;
+   else 
+	   if(root.left == null) //check if there is a left leaf 
+	        return root.data;  //if not return data
+	   else
+	      return smallestNumber(root.left);  //continue until left leaf is null
+		  
+}
+
+Page 659[754] #1, 2, 4
+
+1a. Trace the formation of a maxheap for following array: 
+0   1   2   3   4
+10, 20, 30, 40, 50
+
+Place array into Heap. 
+
+               10
+	    20             30
+    40      50     
+_____________________________
+Reheap
+               10                                 10
+	    20->50          30   --->           50	         30
+	40     50->20                        40    20      
+
+              10->50        				      50
+         50->10			30    ---->         10           30
+	40     20                            40    20
+
+			  50                                   50
+	   10->40       30        ---->           40         30
+    40->10    20                           10   20
+	
+End Result:
+0  1   2  3   4   5
+  50, 40, 30, 10, 20
+ 
+ 
+1b.
+0    1   2   3   4   5   6   7   8   9
+10, 20, 30, 40, 50, 60, 70, 80, 90, 100  
+
+                              10
+					20                     30->70
+          40->90        50->100         60    70->30
+       80   90->40    100->50			   
+
+                              10
+					20->100                 70
+               90        100->20->50     60    30
+            80   40    50->20	
+
+                              10->100
+					100->10->90             70
+               90->10->80    50          60    30
+            80->10   40    20
+			
+			                  100
+					90                 70
+               80       50          60    30
+            10   40    20
+			
+End Result: 
+0   1    2   3   4   5   6   7  8    9  10
+   100, 90, 70, 80, 50, 60, 30, 10, 40, 20   
+   
+2. Add 10, 20, 30, 40, 50 to an empty maxheap.
+
+   10
+___________   
+    10  -->    20
+ 20         10
+__________
+    20                  30
+10     30  --->      10    20
+__________
+          30                   40
+      10      20  --->    30        20
+   40                  10
+__________
+         40                      50
+     30      20   --->      40        20
+   10  50                10   30
+
+Result: 50, 40, 20, 10, 30   
+Compare: 50, 40, 30, 10, 20
+ 
+4a.
+Trace heap sort on: 
+10, 20, 30, 40, 50, 60
+tree:                  heap:
+          10                             60
+	20         30                  50         30
+40     50    60                  40   20    10
+
+Sort:
+60            10                       50
+         50        30             40        30
+	 40    20                 10     20
+
+50, 60            20                    40
+             40       30             20     30
+          10			          10
+
+40, 50, 60        10                 30
+              20     30           20     10
+	
+30, 40, 50, 60       10             20
+                   20             10
+		
+10, 20, 30, 40, 50, 60
+
+4b.
+Trace heap sort on:
+60, 50, 40, 30, 20, 10
+Tree:                            Heap:      
+              60                          60			  
+		50          40              50           40
+	30     20     10             30    20      10
+
+Sort:
+60           10                     50   
+        50       40             30      40
+	 30   20                  10  20
+	 
+50, 60       20                    40
+         30     40              30    20
+      10		              10
+
+40, 50, 60      10                 30
+             30   20             10  20
+
+30, 40, 50, 60       20           20
+                    10           10
+					
+10, 20, 30, 40, 50, 60 
+
+4c. 
+Trace heap sort on:
+20, 50, 40, 10, 60, 30     
+Tree:                         Heap:
+           20                            60
+	  50         40                 50         40
+	10   60    30               10    20     30
+
+Sort: 
+60        30                            50
+     50        40                 30          40
+10      20                    10     20
+
+50, 60        20                         40
+         30        40              30         20
+	 10                         10
+
+40, 50, 60       10                    30
+              30    20              10     20
+
+30, 40, 50, 60        20                20
+                   10                 10
+
+10, 20, 30, 40, 50, 60
+
+
+Page 695[789] #3, 4, 8b, 8c
+
+3. Add 62, 65, to the 2-3 tree in Figure 27b.
+                             60
+				20,50                   65,80
+           10   35,40   55          62    70     90
+             		   
+					   
+4. Add 62, 65, to the 2-4 tree in Figure 27b.
+                            50
+				20                      60,80
+			10     35,40           55  62,65,70     90
+
+What tree results when you add the values:
+10, 20, 30, 40, 50, 60, 70, 80, 90 to 
+8b. A 2-3 tree?
+                              40
+					20                 60,80		  
+                10      30          50   70    90  
+
+8c. A 2-4 tree?
+						20,   40,    60
+		          10        30   50      70,80,90  
+		  
+		  
+		  
+		  
+		   

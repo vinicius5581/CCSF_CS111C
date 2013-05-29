@@ -1,0 +1,416 @@
+Homework #6 Sorting
+
+Victor Malchikov
+
+Page 284[326] #1 -5, 7, 11
+1.
+Sort by hand the arry of integers 5, 7, 4, 9, 8, 5, 6, 3 into ascending order using selection sort
+Find smallest number in array and swap it with first element; increment element and repeat  
+first: 3, 7, 4, 9, 8, 5, 6, 5  (3, 5)
+second: 3, 4, 7, 9, 8, 5, 6, 5 (4, 7)
+third: 3, 4, 5, 9, 8, 7, 6, 5 (5, 9)
+fourth: 3, 4, 5, 5, 8, 7, 6, 9 (5, 9)
+fifth: 3, 4, 5, 5, 6, 7, 8, 9 (6, 8)
+sixth: 3, 4, 5, 5, 6, 7, 8, 9 (7)
+seventh: 3, 4, 5, 5, 6, 7, 8, 9 (8)
+3, 4, 5, 5, 6, 7, 8, 9 (sorted)
+
+2. Repeat 1 but with insertion sort - check, push back, and insert 
+5, 7, 4, 9, 8, 5, 6, 3 //starting array 
+//check index 1
+first: 5, 7, 4, 9, 8, 5, 6, 3 
+//check index 2
+second: 4, 5, 7, 9, 8, 5, 6, 3 
+//check index 3
+third: 4, 5, 7, 9, 8, 5, 6, 3 
+//check index 4
+fourth: 4, 5, 7, 8, 9, 5, 6, 3 
+//check index 5
+fifth: 4, 5, 5, 7, 8, 9, 6, 3 
+//check index 6
+sixth: 4, 5, 5, 6, 7, 8, 9, 3 
+//check index 7
+seventh: 3, 4, 5, 5, 6, 7, 8, 9
+//done 
+
+3. Repeat 1 but use Shell sort
+5, 7, 4, 9, 8, 5, 6, 3 //starting array
+gap = 9/2 = 4
+5           8
+   7           5 
+      4           6 
+	     9           3
+5, 5, 4, 3, 8, 7, 6, 9 //first
+gap = 4/2 = 2
+5     4     8     6  --> 4, 5, 6, 8
+   5     3     7     9 --> 3, 5, 7, 9
+4, 3, 5, 5, 6, 7, 8, 9 //second
+gap = 2/2 = 1 
+3, 4, 5, 5, 6, 7, 8, 9 //third 
+//done 
+
+4. Revise selection sort algorithm so that it seletect the largest element of array
+and sorts the array into descending order (largest to smallest):
+a) Repeat #1 using revised algorithm 
+5, 7, 4, 9, 8, 5, 6, 3  // starting array 
+9, 7, 4, 5, 8, 5, 6, 3 //first
+9, 8, 4, 5, 7, 5, 6, 3 //second
+9, 8, 7, 5, 4, 5, 6, 3 //third
+9, 8, 7, 6, 5, 5, 4, 3 //fourth 
+9, 8, 7, 6, 5, 5, 4, 3 //fifth
+9, 8, 7, 6, 5, 5, 4, 3 //sixth
+9, 8, 7, 6, 5, 5, 4, 3 //seventh
+//done
+
+b)
+public static <T extends Comparable<? super T>> void selectionSort(T[] a, int n)
+{
+  for(int index = 0; index < n - 1; index++)
+  {
+    int indexOfNextLargest = gentIndexOfLargest(a, index, n - 1);
+	swap(a, index, indexOfNextLargest);
+  }
+}
+
+private static <T extends Comparable<? super T>> int getIndexofLargest(T[] a, int first, int last)
+{
+  T large = a[first];
+  int indexOfLarge = first; 
+  for(int index = first+1; index <= last; index++)
+  {
+    if (a[index].compareTo(large) > 0)
+	{
+	  large = a[index];
+	  indexOfLarge = index;
+	} 
+  }
+  
+  return indexOfLarge;
+}
+
+private static void spaw(Object[] a, int i, int j)
+{
+  Ojbect temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
+}
+
+5. Repeat exercise 4, but this time sort the array into ascending order.
+a) Repeat #1 using revised algorithm 
+5, 7, 4, 9, 8, 5, 6, 3  // starting array 
+5, 7, 4, 3, 8, 5, 6, 9 //first
+5, 7, 4, 3, 6, 5, 8, 9 //second
+5, 5, 4, 3, 6, 7, 8, 9 //third
+5, 5, 4, 3, 6, 7, 8, 9 //fourth
+3, 5, 4, 5, 6, 7, 8, 9 //fifth
+3, 4, 5, 5, 6, 7, 8, 9 //sixth
+3, 4, 5, 5, 6, 7, 8, 9 //seventh
+//done
+
+b)
+public static <T extends Comparable<? super T>> void selectionSort(T[] a, int n)
+{
+  for(int index = a.length-1; index > 0; index--)
+  {
+    int indexOfNextLargest = gentIndexOfLargest(a, index, n - 1);
+	swap(a, index, indexOfNextLargest);
+  }
+}
+
+private static <T extends Comparable<? super T>> int getIndexofLargest(T[] a, int first, int last)
+{
+  T large = a[first];
+  int indexOfLarge = first; 
+  for(int index = first+1; index <= last; index++)
+  {
+    if (a[index].compareTo(large) > 0)
+	{
+	  large = a[index];
+	  indexOfLarge = index;
+	} 
+  }
+  
+  return indexOfLarge;
+}
+
+private static void spaw(Object[] a, int i, int j)
+{
+  Ojbect temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
+}
+
+7.
+a. (n^2 )/2 You still have two loops but reduce number of scans by 2. 
+b. This is still O(n^2) 
+
+11.
+Algorithm: 
+1. pass in an array
+2. check that there is more than one element in the array
+3. compare last element in array with first element
+4. if first element is smaller than last element then return true for ascending; else false
+
+//method
+public static boolean order(int[] array)
+{
+	//check that array has more than one element 
+	assert array.length > 1;
+	
+	if(array[0] < array[array.length-1])
+		return true;
+	else
+		return false;
+}
+
+
+Page 310[350] #1, 2a-c, 5 - 8, 9a, (#10 is a challenge) 
+
+1.
+80, 90, 70, 85, 60, 40, 50, 95 //array of Integer objects 
+Show how merge sort works. Since this array is not sorted. Merge sort will break up this array into
+sub-arrays and then sort and merge them back into one array.
+      80, 90, 70, 85, 60, 40, 50, 95
+	80 90   70 85      60 40   50 95
+   80, 90   70, 85    40, 60   50, 95
+   70, 80, 85, 90      40, 50, 60, 95
+     40, 50, 60, 70, 80, 85, 90, 95
+	 
+2a.
+Consider method quickSort in Segmant 18.
+What does the array look like after quickSort partitions it for the first time (show all intermediate results)
+//starting array: 80, 90, 70, 85, 60, 40, 50, 95
+//note: in quickSort if array is less than MIN_SIZE = 10 then insertionSort is used
+Inside quickSort:
+if(last - first + 1 < MIN_SIZE) // true because 7-1 < 10
+ insertionSort(array, 0, 7); //call inserstionSort 
+
+Inside inserstionSort:
+if(first<last) //true 0 < 7
+ insertionSort(a, 0, 6); // call inserstionSort again (this will be called 8 times)
+insertInOrder(a[last], a, first, last-1); //call insertInOrder method 
+40, 50, 60, 70, 80, 85, 90, 95
+
+ALTERNATIVE: if MIN_SZE = 4 then we have the following:
+
+if(last - first+1 < MIN_SIZE) // false because 7-1 = 6 > 4
+ //skip to else clause
+else
+int pivotIndex = partition(a, 0, 7);
+//inside partition
+int mid = (first+last)/2 = 7/2 = 3;
+sortFirstMiddleLast(a, 0, 3, 7);
+//inside sortFirstMiddleLast
+order(a, 0, 3); // this will result in 80, 90, 70, 85
+order(a, 3, 7); // this will result in 85, 60, 40, 50, 95
+order(a, 0, 3); // this will result in 80, 90, 70, 85
+//back in partition 
+swap(a, mid, last-1); //this will result in 80, 90, 70, 50, 60, 40, 85, 95
+int pivotIndex = last-1; //this will be 6
+T pivot = a[6];
+int indexFromLeft = first+1; //this will be 1
+int indexFromRight = last-2; //this will be 5
+
+while(!done)
+{
+//check L -> R  //this yeilds 90 
+//check R -> L  //this yeilds 40
+//swap --> 80, 40, 70, 50, 60, 85, 90, 95
+
+result after first partition: 80, 40, 70, 50, 60, 85, 90, 95
+
+
+2b.
+This quickSort method defaults uses insertsion sort algorithm inside its method when 
+it contains an array of 10 or less elements. Insertion sort is O(n^2) however,
+since we know that the size of the array is at most 10 elements then we can argue that
+this will be executed at most 100 times. 
+
+IF we decide that the quickSort method defaults to insertion sort only when there are 4
+elements in the array then the number of comparisons that this partition process required 
+two. This is not counting the initial setup that determined the pivot point. 
+
+2c. The position of the pivot point will not change as it is already sorted. The whole
+idea behind quick sort is that the pivot is in the position that it will occupy in the final
+sorted array. 
+
+5.
+Show the steps that a radix sort takes when sorting the following array of Integer Objects:
+783, 99, 472, 182, 264, 543, 356, 295, 692, 491, 94
+//first pad the numbers
+783, 099, 472, 182, 264, 543, 356, 295, 692, 491, 094
+ones:     491 472 182 692 783 543 264 094 295 356 099
+tens:     543 356 264 472 182 783 491 692 094 295 099
+hundreds: 094 099 182 264 295 356 472 491 543 692 783  
+
+6.
+     joke, book, back, dig, desk, word, fish, ward, dish, wit, deed, fast, dog, bend
+1st: dig, dog, wit, word, ward, deed, bend, joke, fish, dish, book, back, desk, fast 
+2nd: back, deed, dig, dog, joke, bend, book, wor,d ward, fish, dish, desk, fast, wit
+3rd: back, ward, fast, deed, bend, desk, dig, fish, dish, wit, dog, joke, book, word
+4th: back, bend, book, deed, desk, dig, dish, dog, fast, fish, joke, ward, wit, word
+
+7.
+Describe how a player can use a radix sort to sort a hand of cards.
+If we were to sort the hand of cards then we should first sort 
+numerically then sort them by suit. As such, we would assign numeric 
+values to Jack, Queen, King, and Ace of (11, 12, 13, and 1). Then we
+sort by numbers and once we have  the numbers we would sort by suit
+which would entail C, D, H, S. 
+
+8.
+a) 
+public static void countingSort(int[] a, int last, int first, int numb)
+{
+	//return if array is empty
+	if(array.length == 0)
+		return;
+	int[] sorted = new int[numb+1];
+	for(int i = first, i <= numb+1; i++)
+	{
+	   int counter = 0;
+	   for(int check = first, check <= a.length; check++)
+	   {
+	     if(i == a[check])
+			counter++
+	   }
+	   sorted[i] = counter;
+	}
+	
+	//put back into array but sorted
+	for(int i = 0; i < sorted.length; i++)
+	{
+		counter = 0;
+		int total = sorted[i];
+		while(counter <= total)
+		{
+		   a[counter] = i;
+		 }
+	}
+}	
+
+8b.
+Efficiency of sorts:
+counting sort is O(numb*n)
+insertion sort is O(n^2)
+quick sort is O(n^2)
+
+9a.
+//method that merges two sorted chains into one chain
+private void linkSorted(LList second);
+{
+	//check if lists are empty
+	if(first.isEmpty() && second.isEmpty())
+		return;
+	else if(first.isEmpty() && !second.isEmpty())
+		first = second;
+	else if (!first.isEmpty() && second.isEmpty())
+		return;
+	else
+	{
+		//combine lists
+		int counter = 0;
+		Node current = firstNode;
+		Node secondCurrent = second.getNodeAt(0);
+		//stop if no more data to add from second list
+		while(secondCurrent != null)
+		{
+			//if current list has less items then second list; add more items to the end 
+			if(current == null)
+				current.add(second.getEntry(counter)); 
+			else if(second.getEntry(counter).compareTo(current.data) == 0)
+				current.add(counter, second.getEntry(counter));
+			else if(second.getEntry(counter).compareTo(current.data) < 0)
+				current.add(counter, second.getEntry(counter));
+			else
+				current = current.next;
+			
+			current = current.next;
+		}
+}
+
+10.
+The following algorithms are stable:
+Merge Sort
+Insertion Sort
+Quicksort (varies) - Since partition reorders elements in a partition this means that quicksort 
+                     might not be stable. 
+
+Page 336[374] #1, 2, 7, 10
+
+1.
+Suppose that nameList is a sorted list of names. Using the operations of the ADT list and the ADT sorted list, 
+create a list of these names without changing their order.
+
+This question is not very descriptive so I will provide a answers that I believe satisfy the question.
+
+First:
+Given a sorted list (as stated in the question) nameList contains: Angus, Bill, Charlie.
+We can add these names to a new list using ADT methods.
+newList.add(nameList.getEntry(1));
+newList.add(nameList.getEntry(2));
+newList.add(nameList.getEntry(3)); 
+
+Second:
+We might not know how many elements the sorted nameList contains.
+We could create a loop that copies names into new list but retains their order.
+List newList = new List();
+for(int i = 0; i = nameList.getLength(); i++)
+{
+   newList.add(nameList.getEntry(i));
+}
+
+2.
+Specify a sorted list of unique items. Example given: add could return true if it added an entry to the list but 
+return false if the entry is already in the list.
+
+This question is not very descriptive so I will provide a answers that I believe satisfy the question.
+
+How I understand this question: we must provide a way to the user to let them know that the list contains only unique items 
+(and can only contain unique items). I gather this based on provided example of the add method.
+
+A unique list will not contain duplicate values as such we can implement a new method that will let the user know if the 
+list is unique. This method can be called isUnique() and can return true if it is or false if list contains duplicates. 
+We can further add a method that will let the user know if they are able to add duplicates to the list via method addDuplicates().
+This will return true if list allows for duplicate values or false if the list is strictly unique. As such, this gives the user
+greater understanding about the list and what they can add to it. 
+
+We can modify the contains method to return the number of values that are in the list. This way if there are duplicate values
+the contains method could return position numbers of both values (or simply return number of duplicate copies). 
+
+7a. Consider an array-based implementation of the sorted list. To implement the method add, you must add an entry to a 
+sorted array. Describe the steps in this implementation.
+
+We should traverse the list comparing the value of the object we wish to add to those already in the list. 
+If this object is smaller than all the other objects in the list then it should go to the front of the list.
+If this object is greater than all the other objects then it should go to the end of the list. 
+If there is a dupicate of the object then it should be placed infront of the duplicate. 
+If there are no duplicate values then the object should be placed after obecjts that it is greater and before 
+objects that it is smaller than. 
+
+In the implementation of this we would need to shift the array elements if the object has to be added at the front 
+or into the middle of the array. Basically, unless the object is placed at the end there must be shifting of elements.
+Once we locate where the object must be placed we must shift every element greater than or equal to it up in the array. 
+This is similar to the add method that allows user to add a value into a certain place of the array. 
+
+7b. We base this logic on insertion sort as it closely resembles this implementaion because of the shifting of the elements
+after comparing objects. This also can be seen as a merge sort as there is an array of sorted items that has to be merged 
+with an element of one array. We know that an single element array is already sorted.  
+
+7c. The worst case is that we have to insert at the very front of the array which would require us to shift all the elements.
+No matter how we look at it we have to traverse the list while we compare the object. Once we find the correct location we 
+must shift the elements at and above the insertion point. This is O(n). 
+
+10a. If we are using the approach of sorting the array by calling an add method which automatically sorts the the added 
+elements into proper place then we are using the merge sort. We are comparing a sorted array to an array of one element. 
+We are then combining the two arrays together. 
+
+10b. The disadvangate of putting items into a list and then using a sorting algorithm to sort the list is that we do not 
+know what sorting algorithm will be used. We know that merge sort is O(n log(n) ) at its worst case and this is what we 
+currently presume to have when we call the add method. As such, it would appear that any other sorting algorithm could 
+not do much better (unless we are only dealing with integers and strings where a Radix sort would be ideal). As such, 
+it does not appear to be efficient to copy elements into a list. 
+
+
+
+

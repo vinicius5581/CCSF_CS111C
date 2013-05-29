@@ -1,0 +1,147 @@
+Name: Victor Malchikov
+LabE
+
+////////////CODE//////////////
+
+public class BinarySearchTree 
+{
+   private Node root;
+   
+   //constructor that obtains array of ints
+   public BinarySearchTree(int[] a)
+   {
+	  
+	  //form a bst 
+      for(int i = 0; i < a.length; i++)
+      {
+         if(i == 0)
+            root = new Node(a[i]); //root
+         else
+         {
+            if(root.data >= a[i])
+               addLeft(a[i], root.left, root);   //add left
+            else
+               addRight(a[i], root.right, root); //add right
+         }
+      }
+   }
+   
+   //add to left sub-tree
+   public void addLeft(int val, Node left, Node root)
+   {
+      
+      if(left == null)
+      {
+         root.left = new Node(val);  
+      }
+      if(left != null)
+      {
+         if(left.data >= val)
+            addLeft(val, left.left, left);
+         else
+            addRight(val, left.right, left);
+      }
+      
+   }
+   
+   //add toright sub-tree
+   public void addRight(int val, Node right, Node root)
+   {
+      if(right == null)
+      {
+         root.right = new Node(val);  
+      }
+      if(right != null)
+      {
+         if(right.data < val)
+            addRight(val, right.right, right);
+         else
+            addLeft(val, right.left, right);
+      }
+   }
+   
+   //get root node method
+   public Node getRoot()
+   {
+      return root;
+   }
+   
+   //in-order traversal code
+   public void print(Node root)
+   {
+      if(root == null) 
+         return;
+      else
+      {
+         print(root.left); 
+         System.out.println(root.data);
+         print(root.right);
+      }
+   }
+   
+   //private inner class that helps create bst 
+   private class Node
+   {
+      public int data;
+      public Node left;
+      public Node right;
+   
+      
+      public Node(int val)
+      {
+         data = val;
+         left = null;
+         right = null;
+      }
+
+      
+   }
+   
+} 
+
+/////////////DEMO////////////////
+
+public class DemoBST 
+{
+   public static void main(String args[])
+   {
+      int[] a = { 1, 2, 3, 4, 5 };
+      BinarySearchTree bst = new BinarySearchTree(a);
+      bst.print(bst.getRoot());
+      
+      System.out.println("*******************");
+      
+      int[] b = { 5, 4, 3, 2, 1 };
+      bst = new BinarySearchTree(b);
+      bst.print(bst.getRoot());
+      
+      System.out.println("*******************");
+      
+      int[] c = { 10, 11, 20, 8, 7, 2, 1 };
+      bst = new BinarySearchTree(c);
+      bst.print(bst.getRoot());
+      
+   }
+}
+
+///////////////RESULTS/////////////
+
+1
+2
+3
+4
+5
+*******************
+1
+2
+3
+4
+5
+*******************
+1
+2
+7
+8
+10
+11
+20

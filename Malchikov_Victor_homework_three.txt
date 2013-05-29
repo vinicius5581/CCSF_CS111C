@@ -1,0 +1,538 @@
+Homework 3 - Victor Malchikov
+
+Part I: Page 131 #1-6
+
+1)
+
+//constructor that adds to the front of the list
+public LList( T[] array )
+{
+  for(int i = 0; i < array.length; i++)
+  {
+    boolean succesfull = add(array[i]);
+  }
+}
+
+//constructor that adds to the end of the list
+public LList ( T[] array )
+{
+  for(int i = 0; i < array.length; i++)
+  {
+    //check if list is empty
+	if(isEmpty())
+	{
+	  boolean successfull = add(array[i]);
+	}
+	else
+	{
+	  boolean add = add(length+1, array[i]);
+	}
+  }
+}
+
+You can add objects from an array to the list by looping through the array. 
+We store each object in the array into the list. We can do this two ways. 
+We can add each new object to the front of the list or we can add each 
+new object to the end of the list. Adding a new object to the front of the 
+list is easier then adding to the end of the list. This is because to add 
+to the end of the list we must traverse the list from the beggining node 
+to the last node before adding a new node to the list. 
+
+2a)
+
+10
+20
+60
+10
+20
+60
+
+2b)
+The regular add(T newEntry) method would be affected by this change as it depends on getNodeAt(length). 
+Since there is a general flaw with the changes that were implemented our length variable will not 
+represent the correct number of actual data in the current list. As such, the add(t newEntry) method 
+will not add data in the correct order as it depends on the length variable to get the lastNode in 
+the list. 
+
+At the sametime, we saw that getNodeAt(int givenPosition) was also negatively affected as it too 
+relies on length variable which is not properly storing correct information about the number of 
+data being stored in our list. This is reflected in out output for 2a (above). 
+
+Another method affected by this will be display() method which will be put into an infinite loop 
+because each node will have a next node. 
+
+3)
+
+/** Task: Method that adds an array of items to the end of the list
+*  @param items is an array of items to be added the the end of the 
+*         list. */
+
+public void addAll(T[] items)
+{
+  for(int i = 0; i < array.length; i++)
+  {
+    //check if list is empty 
+	if(isEmpty())
+	{
+	  boolean successfull = add(array[i]);
+	}
+	else
+	{
+	  boolean add = add(length+1, array[i]);
+	}
+  }
+}
+
+4)
+
+/** Task: An operation that returns the position of a given object
+*         in the list.
+*    @param anObject is the object that we want to find in the list. 
+*    @return returns position of the given object in the list or -1
+*         if object is not in the list. */
+
+public int getPosition(T anObject)
+{
+   //check that list is not empty.
+   assert !isEmpty();
+   Node current = firstNode;
+   
+   int position = -1;
+   
+   for(int i = 1; i <= length; i++)
+   {
+     if(current.compareTo(anObject) == 0)
+	    position = i;
+	 else
+	    current = current.next;
+   }
+   
+   return position;
+}
+
+5)
+
+//Node Class must also have a compareTo method for the following
+//method .equals() to work.
+public int compareTo(Object n)
+{
+   Node<T> node = (Node<T>) n;
+   if(data.equals(node.data))
+      return 0;
+   else
+      return -1;
+}
+
+
+/** Task: Compare if entries in one list are equal to entries
+*         in the other list.
+*   @param l is the LList of objects that will be compared.
+*   @return returns true if entries in one list are equal to 
+*         entries in the other.  */
+
+public boolean equals(LList l)
+{
+  //ensure that list is not empty
+  assert !isEmpty();
+  //ensure that both lists are the same size
+  assert (this.length == l.length);
+	  
+  //return true by default 
+  boolean isTrue = true;
+	  
+  //get objects of nodes
+  Node<T> current = firstNode;
+  Node<T> currentL = l.getNodeAt(1);
+	     
+  //loop through lists and compare each objects
+  for(int i = 1; i <= this.length; i++)
+  {
+    if(current.compareTo(currentL) != 0)
+    { 
+      isTrue = false;
+       break;	     
+    }  
+    else
+    {
+      current = current.next;
+      currentL = currentL.next;
+    }
+  }
+	   
+  return isTrue;
+}
+
+6)
+public int compareTo(Object n)
+{
+   Node<T> node = (Node<T>) n;
+   if(data.equals(node.data))
+      return 0;
+   else
+      return -1;
+}
+
+/** Task: If the object being compared is not the same then 
+*         a negative number is returned.
+*   @param anObject is the object to be compared with all objects
+*          in the list. 
+*   @return a LList<T> of objects is returned filled with 
+*          objects that are not the same (less than) compared 
+*          object.
+
+public LList<T> getAllLessThan(Comparable<T> anObject)
+{
+  //ensure that list is not empty
+  assert !isEmpty();
+  
+  //create LList to be returned
+  LList<T> list = new LList<T>();
+  Node<T> current = firstNode;
+  
+  //use for-loop to compare objects 
+  for(int i = 1; i <= length; i++)
+  {
+     if(current.compareTo(anObject) == -1)
+	 {
+        list.add(current.data);
+		current = current.next;
+	 }
+	 else
+	    current = current.next;
+  }
+  
+  return list;
+}
+  
+Part I: Page 153 #1-6
+
+1)
+
+/** Task: An operation that removes the first occurance of a given object
+*         from the list.
+*   @param anObject is the object to be removed from the list. 
+*   @return returns true if given object was removed, else false. */
+
+public boolean remove(T anObject)
+{
+   //ensure that list is not empty
+   assert !isEmpty();
+   
+   boolean isTrue = false;
+   
+   Node<T> current = firstNode;
+   
+   //use for-loop to find and remove object
+   for(int i = 1; i <= length; i++)
+   {
+     if(current.data.equals(anObject) )
+	 {
+	    //if only one item in list then set current to null
+		if(length == 1)
+        {
+           current = null;
+        }
+        else //if more then one item in list then adjust list
+        {
+           Node nodeBefore = getNodeAt(i - 1);
+           nodeBefore.next = nodeBefore.next.next;
+        }		   
+	    isTrue = true;
+		length--;
+		break; //exit loop
+     }
+	 else
+	 {
+	    current = current.next;
+	 }
+   }
+   
+   return isTrue;
+}
+
+2)
+
+/** Task: An operation that removes the all occurance of a given object
+*         from the list.
+*   @param anObject is the objects to be removed from the list. 
+*   @return returns true if given objects were removed, else false. */
+
+public boolean removeAll(T anObject)
+{
+   //ensure that list is not empty
+   assert !isEmpty();
+	
+   //by default will return true
+   boolean isTrue = true;
+   
+   //boolean done used to control the while loop
+   boolean done = false;
+ 
+   while(!done)
+   {
+      //call on another method to remove object
+	  boolean removed = remove(anObject);
+	  if(!removed)
+		done = false;
+   }
+	  
+   return isTrue;
+}
+
+3)
+
+/** Task: Operation to move first item in the list to the end of the list. */
+
+public void moveToEnd()
+{
+  //ensure that list is not empty
+  assert !isEmpty();
+  
+  if(length == 1)
+     return;
+  else
+  {
+     //get last node
+     Node<T> lastNode = getEntry(length);
+	 //store first node into temp node
+	 Note<T> temp = firstNode;
+	 //set secondNode to be first in list
+	 firstNode = firstNode.next;
+	 //set old first node's next to null
+	 temp.next = null;
+	 //have last node point to temp 
+	 lastNode.next = temp;
+	 return;
+  }
+}
+
+4)
+
+public T replace(int givenPosition, T newEntry)
+{
+  //ensure that list is not empty and given position is within the length
+  assert !isEmpty();
+  assert ((givenPosition >= 1 && givenPosition <= length))
+  
+  Node<T> current = firstNode;  
+  T oldData = null;
+  
+  //use loop to obtain and replace old data with new
+  for(int i = 1; i <= length; i++)
+  {
+     if(givenPosition == i)
+	 {
+	   oldData = current.data;
+	   current.data = newEntry;
+	 }
+	 else
+	 {
+	   current = current.next;
+	 }
+   }
+
+   return oldData;
+}  
+
+5)
+
+/** Task: Find and return the smallest object in the list.
+*  @return return the smallest object in the list. */
+
+public T getMin()
+{
+  //ensure list is not empty
+  assert !isEmpty();
+  
+  //if only one item in the list then return data of that item
+  if(length == 1)
+    return firstNode.data;
+  
+  T smallestData = firstNode.data; //store smallest data
+  Node<T> current = firstNode.next;
+    
+  //use for-loop to find smallest data in list	
+  for(int i = 1; i <= length; i++)
+  {
+     if(current.data.compareTo(smallestData) < 1 )
+        smallestData = current.data;
+     else
+        current = current.next;
+  }
+  
+  return smallestData;
+}
+
+/** Task: Find and remove the smallest object in the list.
+*  @return the smallest object removed. */
+
+public T removeMin()
+{
+   //ensure that list is not empty
+   assert !isEmpty();
+   
+   T smallestObject = null;
+   
+   //get the smallest object;
+   T smallestObject = getMin();
+   
+   //remove the object from the list
+   remove(smallestObject);
+  
+   return smallestObject; 
+}
+
+6a) After adding 145 items to arrayList the list is large enough to store 160 items.
+6b) After adding 20 more items to the list the arrayList is large enough to store 320 items.
+6c) After adding 145 items to the chainList there are 145 items in the list.
+6d) After adding 20 more items to the chainList there will be 165 items in the list.
+6e) An arrayList will have 160 references when there are 145 items in the array 
+    and 320 references when there are 160 items in the array.
+    A chainList will have 290 references when there are 145 items in the list 
+	and 330 references when there are 165 items in the list. 
+6f) An arrayList will use fewer references than chainList if arryList has more than 10 items.
+6g) A chainList will use fewer references than arrayList if arrayList has less than 10 items.
+
+Part II: Write four algorithms for the following :
+
+Alg1: Return the average of a linked list of real numbers headed by firstNode
+
+public int avg()
+{
+   //assert that list is not empty
+   assert !isEmpty();
+   
+   Node<T> current = firstNode;
+   
+   //use sum variable to store total from list
+   int sum = 0;
+   
+   for(int i = 1; i <= length; i++)
+   {
+       sum += current.data;
+	   current = current.next;
+   }
+   
+   //calculate avg
+   int avg = sum/length;
+   
+   return avg;
+}
+   
+Alg2: Return true when the data items in a linked list headed by firstNode are in non-descending order
+
+public boolean nonDescending()
+{
+   //check if list is empty
+   assert !isEmpty();
+   
+   //boolean used to inform the user if list is in non-descending order 
+   boolean nonDescending = false;
+   
+   Node<T> current = firstNode;
+   
+   //use loop to check data in the list by using Comparable on objects in the list
+   for(int i = 1; i < length; i++)
+   {
+      //if data in node is greater than data in next node then move on to next node
+	  if(current.data.compareTo(current.next.data) > 0 )
+	  {
+	    current = current.next;
+	  }
+	  else
+	  {
+	     //else set nonDescending to true and leave the loop
+		 nonDescending = true;
+		 break;
+      }
+	}
+	
+	return nonDescending;
+}
+
+Alg3: Returns a reference to the predecessor of the node containing givenItem on a list headed by firstNode
+
+return T getPriorData(T givenItem)
+{
+   
+   T data = null;
+   
+   //check that list has more than one item in it
+   if(length <= 1)
+      return data;
+   //current node is the node whose data we are comparing to givenItem
+   Node<T> current = firstNode.next; 
+   //nodeBefore is node before current node we are checking 
+   Node<T> nodeBefore = firstNode;
+   
+   //use whileloop to check each item in the list using comparable for objects 
+   while(current != null)
+   {
+     if(current.data.compareTo(givenItem) == 0)
+	 {
+	   data = nodeBefore.data;
+	   break;
+	 }
+	 else
+	 {
+	    current = current.next;
+		nodeBefore = nodeBefore.next;
+	 }
+   }
+   
+   return data;
+}
+     
+Alg4: (This is a challenge - a correct answer is not required): Reverse a linked list headed by firstNode without copying data.
+
+public void reverseList(int position)
+{
+   //Find midpoint of the list.
+   int midpoint = (int)length/2;
+   //set counter for the while-loop.
+   int counter = 1;
+   //use variable for front of the list
+   int start = 1;
+   //use variable for end of the list.
+   int end = length;
+   
+   //swap data of corresponding nodes in the list until midpoint is reached
+   while(counter <= midpoint)
+   {
+      T frontTemp = getEntry(start);
+	  T endTemp = getEntry(end);
+	  boolean replacedFront = replace(start, frontTemp);
+	  boolean replacedEnd = replace(end, endTemp);
+	  start++;
+	  end--;
+	  counter++;
+   }
+}
+
+
+Part III: Practice with links
+
+Specify what gets printed or Error?
+Node node1 = new Node(12);
+Node node2 = new Node(34);
+Node node3 = new Node(56, null);
+firstNode= node1;
+node1.next = node2;
+node2.next = node3;
+thisNode= firstNode.next;
+(a)System.out.print(thisNode.data);
+34
+(b)System.out.print(node1.next.data);
+34
+node1 = node2;
+(c)System.out.print(node1.next.data + node2.data);
+90
+node1.data = node1.next.data;
+(d)System.out.print(node1.next.data + node2.data);
+112
+node3.next = node2.next
+(e)System.out.print(node3.next.data);
+56
+node1.next = node1.next.next;
+(f)System.out.println(node1.next.next.data);
+56

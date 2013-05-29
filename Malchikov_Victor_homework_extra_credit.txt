@@ -1,0 +1,210 @@
+Name: Victor Malchikov 
+Homework #Extra Credit
+
+Hwk X:
+These types of questions can be on the final exam.
+Page 727[816]-7 #1 - 7
+Page 750[839] # 1 - 7 
+
+Page:727
+
+1. Connected graph for a pentagon:
+             0
+		  /     \ 
+		0         0
+		 \       / 
+		  0  -  0
+
+OR
+
+             0
+		  /     \ 
+		0         0
+		 \       / 
+		  0     0
+
+Connected Graph: a graph that has a path between every pair of distinct vertices. 
+		  
+2. Describe each graph in Figure 22:
+a. Disconnected
+b. Complete
+c. Complete 
+
+3. Consider a graph that represents acquaintance among people. Each vertex represents 
+a person. Each edge represents an acquaintance between two people. 
+a. Is this graph directed or undirected? 
+This graph is undirected because if the edge serves as an acquaintance then the two 
+people are mutually (equally) connected with one another via acquaintance and there 
+is nothing to indicate a directionality of a relationship. 
+b. Consder all verticies adjacent to a given vertex x. What does this set of vertices 
+represent? These verticies around x represent people that x is linked with by one 
+degree of acquaintanence.  
+c. What does a path in this graph represent? A path represents the number of acquaintance
+a person is removed from another person. 
+d. In what circumstance might one want to know the shortest path between two vertices
+in this graph? It could be possible for someone to know how likely they might have met
+someone via aqcuaintance and the path that has the least number would give probabilty 
+of people having met eachother. It is also showing us how far removed people are from
+getting to know/meet another person. 
+e. Is this graph connected? No. There can be a circumstance where a person had lost 
+all of their aqcuaintance and now they are disconnected from everyone else. Given the
+number of people this can be viewed as a possiblity that cannot be ruled out. As such,
+it can be said that this is not a connected graph.
+
+4.In what order does a breadth-first traversal visit the vertices in the graph in Fig.10?
+a. Start at Vertex G:
+
+-breadth-first traversal is done via queue. 
+-first draw out adjacency list (alphabetical)
+A: B, D, E
+B: E
+C: B
+D: G
+E: F, H
+F: C, H
+G: H
+H: I
+I: F
+
+Done          Wait
+G             H
+GH            I
+GHI           F
+GHIF          C
+GHIFC         B
+GHIFCB        E
+GHIFCBE       -
+
+b. Start at Vertex F:
+Done          Wait
+F             C H
+FC            H B
+FCH           B I
+FCHB          I E
+FCHBI         E
+FCHBIE        -
+
+
+5. Repeat (4) but with depth-first traversal.
+a. Start at vertex G:
+
+-depth-first traversal is done via stack.
+Done           Wait
+G              H
+GH             I
+GHI            F
+GHIF           C
+GHIFC          B
+GHIFCB         E
+GHIFCBE        -
+
+b. Start at Vertex F:
+
+Done           Wait
+F              C H 
+FH             C I
+FHI            C 
+FHIC           B
+FHICB          E
+FHICBE         -
+
+6. Consider directed graph in Fig10. Remove edge between E and F
+and edge between F and H.
+a. In what order will breadth-first traversal visit vertices when
+you begin at vertex A?
+
+-first create new adjacency list
+A: B D E
+B: E
+C: B
+D: G
+E: H
+F: C
+G: H
+H: I
+I: F
+
+-breadth-first uses a queue
+Done             Wait
+A                B D E
+AB               DE
+ABD              EG
+ABDE             GH
+ABDEG            HI
+ABDEGH           IF
+ABDEGHI          FC
+ABDEGHIF         C
+ABDEGHIFC        -
+
+
+b. Repeat (a), but perform a depth-frist traversal instead. 
+-breadth-first uses a stack
+Done             Wait
+A                B D E
+AE               BDH
+AEH              BDI
+AEHI             BDF
+AEHIF            BDC
+AEHIFC           BD
+AEHIFCD          BG
+AEHIFCDG         B
+AEHIFCDGB        -
+
+7.
+Math40 \
+         CS111A - CS111B - CS111C
+Math840 /     CS110A /   
+
+            
+Page 750[839] # 1 - 7 
+
+1. What adjacency matrix represents the graph below?
+  A B C D E F G H I 
+A   1   1 1   
+B         1
+C   1 
+D             1
+E           1   1 
+F     1         1
+G               1
+H                 1
+I            1
+
+2. What adjaceny matrix represnets the graph below?
+  A B C D E F G H I 
+A   2   5 4   
+B         1
+C   3 
+D             2
+E           3   6 
+F     4         3
+G               1
+H                 1
+I            1
+
+3. What adjaceny lists represent the graph in (1)?
+adjacency list (alphabetical)
+A: B, D, E
+B: E
+C: B
+D: G
+E: F, H
+F: C, H
+G: H
+H: I
+I: F
+
+4. Same as (3). 
+
+5. When is adjaceny matrix just as space-efficient as adjacency list?
+We know that for a sparce graph, an adjacency list uses less memory than
+an adjaceny matrix. For a dense graph, an adjaceny matrix can be better. 
+As such, when the graph is about half full then using either can be 
+just as space-efficient. 
+
+6. Adjacency matrix. 
+
+7. Adjacency matrix. 
+
+
+

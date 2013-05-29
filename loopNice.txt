@@ -1,0 +1,60 @@
+ 	      
+	   Object T = cl.newInstance();
+	   Object value = ;
+	   return value != null? value.toString() : "";
+		if true, then 1 (else :) 2; 
+ 
+ 
+ if(d.toString().contains("void"))
+	   {
+	     // System.out.println("void");
+	      return "void";
+	   }
+	   
+	   String regTmp = reg.toString();
+	   
+	   if(regTmp.contains(".") && !reg.toString().contains("["))
+	   {
+
+	      regTmp = regTmp.substring(regTmp.lastIndexOf(".")+1, regTmp.length());
+	     // System.out.println("red: " +regTmp);
+	      return regTmp;
+	   }
+	   
+	   tmp = tmp.substring(0, tmp.indexOf("("));
+	   if(d.toString().contains("[") && d.toString().contains("]"))
+	   {
+	      tmp = d.toString();
+	      tmp = tmp.substring(0, tmp.indexOf("]")+1);
+	      tmp = tmp.substring(tmp.indexOf(" "), tmp.length());
+	      if(tmp.contains("."))
+	         tmp = tmp.substring(tmp.lastIndexOf(".")+1, tmp.length());
+	      //System.out.println("Array: " + tmp);
+	   }
+	   else if(g.toString().contains("<") && g.toString().contains(">"))
+	   {
+	      tmp = g.toString();
+	      tmp = tmp.substring(0, tmp.indexOf("<"));
+         
+         String[] a = tmp.split(",");
+
+         for(int j = 0; j < a.length; j++)
+         {
+            if(j == 0)
+               tmp = a[j].substring(a[j].lastIndexOf(".")+1, a[j].length());
+            else 
+               tmp += ", "+(a[j].substring(a[j].lastIndexOf(".")+1, a[j].length()));
+         
+         }
+         type = type.substring(type.lastIndexOf(".")+1, type.length());
+         String gen = type.substring(type.indexOf("<")+1, type.length());
+        // System.out.println("current tmp: " + tmp);
+         tmp = tmp+"<"+gen;
+        // System.out.println("gen: " + tmp);
+         //return tmp;
+	   }
+	   else
+	   {
+	      tmp = reg.toString();
+	      //System.out.println("reg: " + tmp);
+	   }

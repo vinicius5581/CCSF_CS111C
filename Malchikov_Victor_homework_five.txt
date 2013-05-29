@@ -1,0 +1,229 @@
+Victor Malchikov
+
+Homework #5 - Recursion 
+#1-8, 11, 15-17
+
+#1
+public static void displayRowOfCharacters(char c, int n)
+{
+    //return when we hit 0; prior to that print c
+    if(n > 0)
+    {
+        System.out.print(c);
+        displayRowOfCharacters(c, n-1);
+	}
+    else
+        System.out.println(); //ensure that cursor advances to new line if done
+}
+
+#2
+Algorithm that draws concentric circles given the diameter of the outermost cicle
+will have a base case that tests if diameter is equal to or less than one. If 
+diameter is equal to or is less than one then recursion stops.
+
+We can draw the cirlces prior to calling the recursive method or we can call each
+recursive method first and then upon exiting each method we can draw the circles.
+
+The circles will all be drawn starting at the same center but the radius will change
+based on the diameter passed in. Each time we call the recursive method we will 
+pass in the parameter for the new diameter of the circle which will be diameter*(3/4).
+
+#3
+private static int getInteger() {
+      
+    System.out.println("Please enter number between 1 and 10");
+    Scanner sc = new Scanner(System.in);
+    String input = sc.next();
+    int number = Integer.parseInt(input);
+    if (!(number >= 1 && number <=10))
+    {
+       return getInteger(); //if number is not between 1 and 10 then get a new number
+    }
+    else
+       return number; //return number if it is between 1 and 10
+            
+}
+
+#4
+private static int factorial(int n) {
+   if(n == 1)
+     return 1;
+   else
+     return n*factorial(n - 1);
+}
+
+private static int factorial(int n) {
+	if(n == 0)
+		return 1;
+	else 
+		return n*factorial(n-1);
+}
+
+#5
+It is difficult to understand this question but here are my two answers that could 
+satisfy this question.
+
+//This method displays the array backwards
+private static void displayArrayBackWards(int[] array, int n)
+{
+	if(n < array.length)
+		displayArrayBackWards(array, n+1);
+	else
+		System.out.println(array[n]);
+}
+
+//This method reverses contents of array and prints out new array 
+private static void reverseArray(int[] array, int position)
+{
+      
+    if(position < array.length)
+    {
+        int temp = array[array.length -(position+1)];
+        reverseArray(array, position+1);
+        array[position] = temp;
+        System.out.println("Index: " + position + " now contains: " + temp);
+     }
+}
+
+#6
+It is difficult to understand this question but here are my two answers that could 
+satisfy this question.
+
+//This method displays the array recursively
+public static void displayArray(int[] array, int position)
+{
+	if(position < array.length)
+		System.out.println(array[position]);
+}
+
+//This method reverses the physical contents of the array and prints out the result
+public static void reverseArray(int[] array, int position)
+{
+	if(position < array.length)
+	{
+		int temp = array[array.length - (position + 1)];
+		System.out.println(array[array.length - (position+1)]);
+		reverseArray(array, position+1);
+		array[position] = temp;
+	}
+}
+
+#7
+private static String reverseString(String word, int ch)
+{
+    if(ch < word.length())
+    {
+       String c = word.substring(ch, ch+1);
+       return (reverseString(word, ch+1) + c);
+    }
+    else
+       return "";
+}
+
+#8
+private static boolean isPalindrome(String word)
+{
+    //base case  
+	if(word.length() == 1 || word.length() == 0 )
+        return true;
+    else
+	{
+        //check if start of the word equals end of the word
+		String start = word.substring(0, 1);
+        String end = word.substring(word.length() - 1, word.length());
+        if(start.equals(end))
+        {
+			//if it does then remove first and last letters and call method again 
+			word = word.substring(1, word.length()-1);
+			return isPalindrome(word);
+		}
+		else
+			return false;
+	}
+      
+}
+
+#11
+private static int countNodes(Node current)
+{
+	if(current == null)
+		return 0;
+	else
+		return 1 + countNodes(current.next);
+}
+
+#15
+//one - start at beggining and go until length of array
+private static int sum(int[] array, int position)
+{
+	if(position < array.length)
+		return array[position] + sum(array, position+1);
+	else
+		return 0;
+		
+}
+
+//two - start at beginning and go to array.length
+private static int sum(int[] array, int start, int last)
+{
+	if(start < last)
+		return array[start] + sum(array, start+1, last);
+	else
+		return 0;
+}
+
+//three -divide array into halves 
+private static int sum(int[] array, int first, int last)
+{
+    if(first == last)
+       return array[first];     
+	else
+    {
+       int mid = (first+last)/2;
+	   int a = sum(array, first, mid);
+	   int b = sum(array, mid+1, last);
+       return a+b;
+    }
+}
+
+//four - start at end of array (start being array.length)
+private static int sum(int[] array, int start)
+{
+	if(start >= 0)
+		return array[start-1] + array[start-2];
+	else
+		return 0;
+}
+
+#16
+//initially user can pass in array, array[0], array.length
+private static int findSmallest(int[] array, int smallest, int position)
+{
+	if(position < array.length)
+	{
+		//check if this index contains smaller number
+		int small = smallest;
+		if(smallest > array[position])
+			small = array[position];
+		return findSmallest(array, small, position+1);
+	}
+	else
+		return smallest;
+}
+
+#17
+f(16)
+f(16/2) = f(8) 
+f(8/2) = f(4)
+1 + f(8/4) = f(2)
+2 + f(16/4) = f(4)
+2 + 1 
+return 3;
+
+	
+
+
+		
+		
+	
+	

@@ -1,0 +1,542 @@
+
+Stacks 
+Page 460[560] #1 – 4, 5abc, 6ab, 8a, 9 – 12 
+Page 476[576] #1, 2, 6 
+
+Queues 
+Page 501[601] #1 – 9, 13 
+Page 535[635] #3 – 5 
+Page 133[177] #9 
+Page 154[198] #7
+
+Page 460
+1. If you push objects x, y, and z onto an initially empty stack, in what order will 
+three pop operations remove them from the stack?
+mStack.push(x); //x (top)
+mStack.push(y); //x, y (top)
+mStack.push(z); //x, y, z (top)
+mStack.pop(); //returns z
+mStack.pop(); returns y
+mStack.pop(); returns x 
+
+You will get z, y, x. The items are returned in reverse chronological order. 
+
+2. s and t are empty stacks and a,b,c,d are objects. What do the stacks contain after the 
+following sequence of operations?
+s.push(a); // s: a (top)
+s.push(b); // s: a, b (top)
+s.push(c); // s: a, b, c (top)
+t.push(d); // t: d (top)
+t.push(s.pop()); // s: a, b (top) 
+                 // t: d, c (top)
+t.push(s.peek()); // s: a, b (top)
+                  // t: d, c, b (top)
+s.push(t.pop()); // s: a, b, b (top)
+                 // t: d, c (top)
+t.pop() // t: d (top)
+        // s: a, b, b (top)
+        
+3a. 
+Following values are displayed after code executes:
+1
+2
+6
+24
+
+3b.
+What mathematical function does the code evaluate? 
+This is similar to factorials. 4! = 1 x 2 x 3 x 4
+
+4. Show the contents of the satck as you trace the algorithm checkBalance in Segment 9
+a. 
+a{b[c*(d+e)]-f}
+{ --> (top)
+{ [ 
+{ [ (
+{ [ 
+{
+done, balanced = true 
+
+4b.
+{ --> (top)
+{ (
+{ 
+{ [
+{ 
+{ -- > balanced = false because ')' does not match '{' 
+
+4c. 
+{ --> (top)
+{ [
+{ --> balanced = false because ']' does not match '{'
+
+5a. Use converttoPostfix in Segment 17
+a*b/(c-d)
+postfix    operator 
+a          *
+ab         *
+ab*        /
+ab*        /(
+ab*c       /(
+ab*c       /(-
+ab*cd      /(-
+ab*cd-/
+
+5b.
+(a-b*c)/(d*e*f+g)
+postfix  operator
+        (
+a		(
+a		(-
+ab		(-
+ab		(-*
+abc		(-*
+abc*-
+abc*-	/
+abc*- 	/(
+abc*-d	/(
+abc*-d	/(*
+abc*-de	/(*
+abc*-de*	/(*
+abc*-de*f	/(*
+abc*-de*f*	/(+
+abc*-de*f*g /(+
+abc*-de*f*g+/
+
+
+5c.
+a/b*(c+(d-e))
+postfix operator
+a
+a		/
+ab		/
+ab/		*
+ab/		*(
+ab/c	*(
+ab/c	*(+
+ab/c	*(+(
+ab/cd	*(+(-
+ab/cde	*(+(-
+ab/cde-+*
+
+6a. Using evaluatePostfix in Segment 20 evaluate following with (a=2, b=3, c=4, d=5, e=6)
+ab + c*d-
+(ab+) 
+(a+b)c*
+((a+b)*c)d-
+((a+b)*c)-d --> ((2+3)*4)-5 = 15
+
+6b.
+ab*ca-/de*+
+( (a*b)/(c-a) ) + (d*e) = ( (2*3)/(4-2) ) + (5*6) = 33
+
+8a.
+a=2, b=3, c=4, d=5, e=6, f=7
+(a+b)/(c-d)-5
+valueStack operatorStack  actual value
+		   ( 
+a		   (+				2         
+ab		   (+				2,3
+(a+b)						5
+(a+b)	   /				5
+(a+b)	   /(				5
+(a+b)c	   /(				5,4
+(a+b)c	   /(-				5,4
+(a+b)cd	   /(-				5,4,5
+(a+b)(c-d) /				5,-1
+(a+b)/(c-d) - 				-5
+(a+b)/(c-d)5 -				-5,5
+(a+b)/(c-d) - 5 			-10
+
+9.
+You can use a stack to test if a string is a palindrome by iterating through the string and 
+pushing all the characters that are letters into a stack. Once you pushed every character 
+into the stack you can iterate through the string again while poping the stack. The stack
+will contain the string in reverse order so we will compare the top letter in the stack 
+with the end letter of the string. Again, we will ignore characters that are not letters.
+Example:
+Race car
+Once we push this string into a stack the stack will look like this:
+Racecar (top)
+Now we can pop 'r' and compre the end of the string "Race car" (compare to 'r')
+Then we pop 'a' and compare to second to last letter "Race car" (compare to 'a')
+
+10.
+You can push a binary string into a stack by only pushing '0' or '1' (your choice). 
+When you finish pushing either of those into the string check the size of the stack.
+If the size of the stack is equal to 1/2 the original string size then we know that
+there are as many '0' characters as there are '1'. If we decided to push '0' and 
+the stack size was greater then half the original string size then we know that there
+are more '0' then '1'. If half the original string size is greater then stack size
+then we know there are more '1' then '0'. 
+ 
+11.
+Stack<String> s = new Stack<String>();
+ s.push("one");
+ s.push("two");
+ s.push("three");
+ Stack<String> s2 = new Stack<String>();
+      
+ while(!s.isEmpty()) {
+   s2.push(s.pop());
+         
+ }
+      
+ while(!s2.isEmpty()) {
+   String tmp = s2.pop();
+   System.out.println(tmp);
+   s.push(tmp);
+ }
+
+ ***ANOTHER WAY TO DO THIS RECURSIVELY****
+ Stack<String> s = new Stack<String>();
+ s.push("one");
+ s.push("two");
+ s.push("three");
+ 
+ display(s);
+ .
+ .
+ .
+ //we have a static method that recursively displays stack chronologically, retains origianl stack
+ //when done
+ 
+  public static void display(Stack<String> s) {
+      
+      if(s.isEmpty())
+         return;
+     
+      String tmp = s.pop();
+      display(s);
+      System.out.println(tmp);
+      s.push(tmp);
+   }
+   
+ 
+12.
+Looking at question 11. If we use the recursive method then the following occurs:
+We enter the method.
+Is stack empty? No.
+Pop top item and store it in tmp. 
+Call recursive method.
+We enter second recrusive method call.
+Is stack empty? No.
+Pop top item and store it in tmp. 
+Call recursive method.
+We enter third recrusive method call.
+Is stack empty? No.
+Pop top item and store it in tmp. 
+Call recursive method.
+We enter fourth recursive method.
+Is stack empty? Yes.
+Return to third recurisve method.
+Print tmp item from stack.
+Push tmp item back into stack.
+Return to second recurive method.
+Print tmp item from stack.
+Push tmp item back into stack.
+Return to first recurive method.
+Print tmp item from stack.
+Push tmp item back into stack.
+Return to original method.
+
+Page 476[576] #1, 2, 6 
+
+1. 
+Array stack can be implemented in various ways. You can use a static array or a dynamic array. However, 
+no matter which type of an array you end up using the array will still contain elements that are empty. 
+This means that we will be wasting space as those elements are not storing data but are being kept 
+open and available for future data input. Futhermore, arrays will need to be expanded at somepoint to 
+allow room for more data which does take up time and memory to do. Overall we know that an array actually
+uses less space then a linked list (because we store pointers with linked lists). As such, an array 
+could be beneficial from that perspective. 
+
+Again implementaion is key. If we use arrays we want to ensure that the top of the stack is either the 
+last element in the array if the array accepts new entries chonologically. If the stack accepts new 
+entries by putting them at the end of the array then we want to ensure that the top of the stack is 
+not at the end of the array. See the following for better picture:
+0, 1, 2, 3 (top) //array of 10 elements
+(top )5, 6, 7, 8, 9 //array of 10 elements 
+
+If we implement linked lists then we should have the first node always point to the last node added. As such,
+the last node will be the top node.
+
+2. 
+We can have a double-linked lists where each node has a pointer to the node infront of it and to the node before it.
+If we need to pop() an item from the list all we do is move the pointer of topNode to the node before. Node before
+is now the top of the stack. If we push() a new item on to the stack we do not need to traverse the list. All we do
+is point top node to new node with new data and have the node before point to the new node as well (note: new node 
+will need to point to nodebefore). Peek() will return data from topNode (which is the last node added). 
+
+6a.
+If the stack is now at 2n then we can keep making calls to push until the number of elements reaches 2n. Then
+we must double the array again. 
+
+6b. 
+If cost to push is O(1) then if we push 6 elements into the array then we made 6 calls to push. (1+1+1+1+1+1)/6 = 1.
+As such, we can generalize this by saying if we make n calls to push then the average will be n/n =1. 
+
+Queues 
+Page 501[601] #1 – 9, 13 
+1. 
+myQueue.enqueue(x);
+myQueue.enqueue(y);
+myQueue.enqueue(z);
+Queues are first in, first out so when we dequeue the order will be x, y, z. 
+
+2.
+If we add x, y, z to a deque then when we use removeBack operation then 
+the objects in the deque will be removed as follows: 
+(assuming we added everything to front initially) z,y,x
+ 
+3. 
+Contents of the queue after adding contents:
+(front) Jill, Jane, Jess, Jim, Jill
+
+4.
+addToFront(Jim); (front) Jim
+addToFront(Jess); (front) Jess, Jim
+addToBack(Jill); (front) Jess, Jim, Jill (back)
+addToBack(Jane); (front) Jess, Jim, Jill, Jane (back)
+name = myDeque.removeFront(); (front) Jim, Jill, Jane (back)
+addToBack(name); (front) Jim, Jill, Jane, Jess
+addToBack(myDeque.getFront()); (front) Jim, Jill, Jane, Jess, Jim (back)
+addToFront(myDeque.removeBack()); (front) Jim, Jim, Jill, Jane, Jess (back)
+addToFront(myDeque.getBack()); (front) Jess, Jim, Jim, Jill, Jane, Jess (back)
+
+5.
+(I will assume that the priority queue will prioritize alphabetically) 
+add(Jim); (front) Jim
+add(Jess); (front) Jess, Jim 
+add(Jill); (front) Jess, Jill, Jim
+add(Jane); (front) Jane, Jess, Jill, Jim
+name = myPriorityQueue.remove(); // (front) Jess, Jill, Jim
+add(name); (front) Jane, Jess, Jill, Jim
+add(myPriorityQueue.peek()); (front) Jane, Jane, Jess, Jill, Jim
+add("Jim"); (front) Jane, Jane, Jess, Jill, Jim, Jim
+remove(): (front) Jane, Jess, Jill, Jim, Jim
+
+6. 
+
+public static boolean checkString(String a)
+{
+	char tmpChar = a.charAt(0);
+	int index = 0;
+	
+
+	while(tmpChar.isLetter())
+    {
+	   myQueue.enqueue(a.substring(index, index+1);
+	   index++;
+	   tmpChar = a.charAt(index);
+	}
+	
+	while(!tmpChar.isLetter() )
+	{
+		tmpChar = a.charAt(index);
+		index++;
+	}
+	
+	boolean check = true;
+	
+	while(check)
+
+	{
+		String tmp = myQueue.getFront();
+		if(tmp.equals(a.substring(index, index+1)
+		{
+			continue;
+		}
+		else
+		{
+		   check = false;
+		}
+	}
+	
+	return check;
+}
+	
+7.
+
+Time: 10
+     Customer 4: 1min
+	 Customer 5: 4min
+	 Customer 6: 2min (arrives)
+	 
+	 11
+	 Customer 4: (finishes and leaves)
+	 Customer 5: 4min (starts)
+	 Customer 6: 2min
+	 
+	 12
+	 Customer 5: 3min
+	 Customer 6: 2min
+	 
+	 At this rate, Customer 5 is done and leaves at time 15. At time 15 Customer 6 starts 
+	 their transacation. At time 17, Customer 6 finishes and leaves. 
+	 
+8.
+During the simulation:
+Customer 1 enters at time 6 and leaves at time 9. (3min)
+Customer 2 enters at time 8, starts at time 9, leaves at 12 (3min)
+Customer 3 enters at time 10, starts at time 12, leaves at 13 (1min)
+Customer 4 enters at time 11, starts at time 13.
+
+Number of customers served is 4.
+Average waiting time is: (0+ 1 + 2 + 2)/4 = 1.25min
+
+9.
+During the simulation:
+Customer 1 enters at time 0, leaves at time 5. (0min waited)
+Customer 2 enters at time 1, starts at 5, leaves at 9.(4min waited)
+Customer 3 enters at time 3, stars at 9, leaves at 10. (6min waited)
+Customer 4 enters at time 4, starts at 10, leaves at 14 (6min waited)
+Customer 5 enters at time 9, starts at 14, leaves at 17 (5min waited)
+Customer 6 enters at time 12, starts at 17, leaves at 19 (5min waited)
+Customer 7 enters at time 13, starts at 19, leaves at 20 (6min waited)
+Number of customers served is: 5.
+Average waiting time is: (0 + 4 + 6 + 6 + 5)/5 = 4.2min
+
+13.
+User other ADTS to determine if a string is a palindrome.
+
+Priority Queue - This will work as a regular queue. Priority is given to the first letters
+of the word and we only queue 1/2 the string. If the string is hellolleh then we only store 
+hell --> h,e,l,l we would then compare the end of the string with stored letters in priority 
+queue. We dequeue then remove() items from priority que comparing them to letters in the string.
+If there all letters match then the string is a palindrome. 
+
+public boolean isPalindrome(String word, PriorityQueue<String> pq)
+{
+	//NOTE: instead of PriorityQueue we can use a regular Queue
+	boolean check = true;
+	int half = 0;
+	while(half != word.length()/2)
+	{
+		String s = word.substring(half,1);
+		pw.add(s);
+		half++;
+	}
+	
+	int i = word.length()-1;
+	int j = word.length();
+	while(check && !pq.isEmpty())
+	{
+		if(word.substring(i,j).equals(pq.remove())
+		{
+			i--;
+			j--;
+		}
+		else
+			check = false;
+	}
+	return check;
+}
+
+//Dequeu
+We can use a Dequeu just like a stack or a queueu since we can remove and add to either front
+or back. As such, we can implement a dequeue using either of the operations previously shown
+using methods of the dequeu class. 		
+
+Page 535[635] #3 – 5 
+3. 
+The following method merges two queues togehter by dequeuing one queue while adding those 
+elements to another queue. 
+public void splice(QueueInterface<T> anotherQueue) {
+
+	while(!anotherQueue.isEmpty()) {
+		enqueue(anotherQueue.dequeue());
+	}
+}
+
+4.
+The following method merges two queues together. We will keep adding to the end of the array
+items from the second queue. If the array becomes full we will call the doubleArray() method
+which will double the size of the current queue and properly allocate items over to the new
+array. Then we will continue to obtain items from the second queue until that queue is empty. 
+
+public void splice(QueueInterface<T> ()) {
+	
+	while(!anotherQueue.isEmpty() ){
+		if(isArrayFull())
+			doubleArray();
+		else
+		{
+			backIndex = (backIndex+1)%queue.length;
+			queue[backIndex] = anotherQueue.dequeue();
+		}
+	}
+}
+		
+5.
+The following method mergues two queues together using chain linked list. In circular 
+linked list we have one node that points to the lastNode added. We dequeue the second
+queue and that data will be stored in a newNode. That newNode will be added to the end
+of the queue. As such, newNode must point to the front node and to the previous node.
+Once we set the pointers we make lastNode point to newNode.
+
+public void splice(QueueInterface<T>() ) {
+	while(!anotehrQUeue.isEmpty() ) {
+		newNode = anotherQUeue.dequeue();
+		newNode.frontNode = lastNode.frontNode;
+		newNode.previousNode = lastNode;
+		lastNode = newNode;
+	}
+}
+	
+
+Page 133[177] #9 
+9. List the steps necessary to add a node to the doubly linked chain shown in Figure 17
+when the node is:
+a) First in the chain.
+When we want to add a node to the front of the list then we need to do the following:
+First, check if list is empty.
+If list is empty then make the firstNode and lastNode point to nodeAdded.  
+FirstNode --> NodeAdded <----LastNode //this is what happens when we add a node to an empty list.
+NodeAdded will have nodeFront and nodeBack = null.
+
+If the list is not empty. 
+Have node that is first in the list point to nodeAdded. Then have firstNode point to nodeAdded. Then
+have nodeAdded have nodeBack point to node that was previously first. Have nodeAdded set nodeFront to 
+null.
+
+b)
+Last in the chain.
+When we want to add a node to the end of the list then we need to do the following:
+First, check if list is empty.
+If list is empty then make the firstNode and lastNode point to nodeAdded. 
+FirstNode --> NodeAdded <----LastNode //this is what happens when we add a node to an empty list.
+NodeAdded will have nodeFront and nodeBack = null.
+
+If the list is not empty. 
+Have node that is last in the list set it nodeBack to nodeAdded. Then have lastNode point to nodeAdded.
+Then have nodeAdded have a nodeFront point to node that was previously last. Have nodeAdded set nodeBack
+to null.
+
+c)
+Between existing nodes in the chain.
+
+I will assume that the list is not empty. 
+To add into middle of the chain we need to traverse the list starting from firstNode until we reach the 
+desired location (where we want to add the node). At that location, have nodeBefore set nodeBack pointer to 
+nodeAdded and nodeAfter set pointer nodeForward to nodeAdded. At the same time, have nodeAdded add pointers
+that set nodeFront to nodeBefore and nodeBack to nodeAfter. 
+
+Page 154[198] #7
+7. List steps necessary to remove a node from a doubly linked chain when the node is:
+a) First in the chain.
+First set firstNode to point to nodeBack of the node that is currently first.
+Then set nodeBefore's pointer of nodeFront to null. 
+Note: you should check if list only contains one node if it does then set firstNode and lastNode to null.
+
+b)Last in the chain.
+First set lastNode to point to nodeFront of the node that is currently last.
+Then set nodeFront's pointer to nodeBack to null. 
+Note: you should check if list only contains one node if it does then set firstNode and lastNode to null.
+
+c)Between existing nodes in the chain.
+To remove from the middle of the chain we must traverse the chain searching for the node we wish to remove.
+When we find the node we must set the pointers of nodes that point to this node to no longer point to it.
+As such, we can call node we wish to remove nodeToRemove.
+We must set nodeToRemove.nodeFront.nodeBack = nodeToRemove.nodeBack;
+We must set nodeToRemove.nodeBack.nodeFront = nodeToRemove.nodeFront;
